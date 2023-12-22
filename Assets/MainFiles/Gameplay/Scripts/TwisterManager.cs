@@ -1,0 +1,67 @@
+using System;
+using System.Collections;
+using UnityEngine;
+
+namespace Twister
+{
+	public class TwisterManager : MonoBehaviour {
+		public static event Action OnLevelClear;
+		public static event Action OnGameClear;
+		public static event Action OnCorrectGuess;
+		public static event Action OnWrongGuess;
+
+        internal enum Players {
+			player1,
+			player2,
+		}
+
+		[SerializeField]
+		internal TwisterSolutionDisplayer player1Displayer;
+		[SerializeField]
+		internal TwisterSolutionDisplayer player2Displayer;
+
+		[SerializeField]
+		internal TwisterLevel[] levels;
+
+		internal static TwisterManager instance;
+
+		int level;
+		bool successFlag;
+
+		public void StartGame() {
+			instance = this;
+			StartCoroutine(nameof(MainLoop));
+		}
+
+		IEnumerator MainLoop() {
+			for (level = 0; level < levels.Length; level++)
+			{
+				levels[level].Spawn();
+				
+				if(levels[level].guesser ==Players.player2) {
+					player1Displayer.DisplaySolution(levels[level]);
+				}
+				else {
+					player2Displayer.DisplaySolution(levels[level]);
+				}
+				while(!successFlag) {
+					yield return new WaitForEndOfFrame();
+				}
+				successFlag = false;
+				OnLevelClear?.Invoke();
+			}
+			OnGameClear?.Invoke();
+		}
+
+		internal bool TryGuess(TwisterButton button) {
+			if(button == levels[level].goal) {
+				successFlag = true;
+				OnCorrectGuess?.Invoke();
+				return true;
+			}
+			OnWrongGuess?.Invoke();
+			return false;
+		}
+
+	}
+}
