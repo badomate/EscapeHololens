@@ -5,7 +5,7 @@ namespace Gameplay.Items.Properties
 {
     public class ColorSO : PropertySO
     {
-        static Dictionary<ValueType, Color> validColors =
+        static readonly Dictionary<ValueType, Color> validColors =
             new Dictionary<ValueType, Color>() {
                 { ValueType.BLUE, Color.blue},
                 { ValueType.RED,Color.red }
@@ -18,20 +18,20 @@ namespace Gameplay.Items.Properties
             BLUE
         }
 
-        [SerializeField]
-        protected ValueType valueType;
+        public ValueType ColorType { get; protected set; }
 
-        public ColorSO(Type type):base(type)
+        public ColorSO(PropertyType type, ValueType colorType) :base(type)
         {
-            _type = Type.Color;
+            Type = PropertyType.Color;
+            ColorType = colorType;
             Value = GetColorValue();
         }
 
         private Color GetColorValue()
         {
-            if (validColors.ContainsKey(valueType))
+            if (validColors.ContainsKey(ColorType))
             {
-                return validColors[valueType];
+                return validColors[ColorType];
             }
             else
             {
@@ -41,7 +41,7 @@ namespace Gameplay.Items.Properties
 
         public bool EqualsValueType(ColorSO other)
         {
-            return valueType.Equals(other.GetValueType());
+            return ColorType.Equals(other.GetValueType());
         }
 
         public override bool EqualsValue(PropertySO property)
@@ -51,7 +51,7 @@ namespace Gameplay.Items.Properties
 
         public ValueType GetValueType()
         {
-            return valueType;
+            return ColorType;
         }
     }
 }

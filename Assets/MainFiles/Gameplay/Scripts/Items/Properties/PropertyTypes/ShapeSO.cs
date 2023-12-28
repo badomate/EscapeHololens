@@ -5,8 +5,7 @@ namespace Gameplay.Items.Properties
 {
     public class ShapeSO : PropertySO
     {
-        [SerializeField]
-        public static Dictionary<ValueType, GameObject> validShapes;
+        public static readonly Dictionary<ValueType, GameObject> validShapes;
 
         public enum ValueType
         {
@@ -15,20 +14,20 @@ namespace Gameplay.Items.Properties
             CIRCLE
         }
 
-        [SerializeField]
-        protected ValueType valueType;
+        public ValueType ShapeType { get; protected set; }
 
-        public ShapeSO(Type type):base(type)
+        public ShapeSO(PropertyType type, ValueType shapeType):base(type)
         {
-            _type = Type.Shape;
+            Type = PropertyType.Shape;
+            ShapeType = shapeType;
             Value = GetShapeValue();
         }
 
         private GameObject GetShapeValue()
         {
-            if (validShapes.ContainsKey(valueType))
+            if (validShapes.ContainsKey(ShapeType))
             {
-                return validShapes[valueType];
+                return validShapes.GetValueOrDefault(ShapeType);
             }
             else
             {
@@ -38,11 +37,11 @@ namespace Gameplay.Items.Properties
 
         public bool EqualsValueType(ShapeSO other)
         {
-            return valueType.Equals(other.GetValueType());
+            return ShapeType.Equals(other.GetValueType());
         }
         public ValueType GetValueType()
         {
-            return valueType;
+            return ShapeType;
         }
     }
 }

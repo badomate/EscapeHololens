@@ -7,19 +7,20 @@ namespace Gameplay.Items
     public class Item : MonoBehaviour
     {
         [SerializeField]
-        private Dictionary<PropertySO.Type, PropertySO> _properties;
+        private Dictionary<PropertySO.PropertyType, PropertySO> Properties;
 
-        public PropertySO GetProperty(PropertySO.Type propertyType)
+        public PropertySO GetProperty(PropertySO.PropertyType propertyType)
         {
-            return _properties[propertyType];
+            Properties.TryGetValue(propertyType, out PropertySO property);
+            return property;
         }
 
         [SerializeField]
-        private int _id { get; set; }
+        private int Id { get; set; }
 
         public int GetId()
         {
-            return _id;
+            return Id;
         }
     }
 }

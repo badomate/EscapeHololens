@@ -7,7 +7,7 @@ namespace Gameplay.Items.Properties
 {
     public abstract class PropertySO : ScriptableObject
     {
-        public enum Type
+        public enum PropertyType
         {
             NONE,
             Color,
@@ -16,24 +16,24 @@ namespace Gameplay.Items.Properties
         }
 
         [SerializeField]
-        protected Type _type { get; set; }
-        protected dynamic Value;
+        public PropertyType Type { get; protected set; }
+        public dynamic Value {get; protected set; }
 
-        public PropertySO(Type type)
+        public PropertySO(PropertyType type)
         {
-            _type = type;
+            Type = type;
         }
 
-        public List<Type> GetAllTypes()
+        public List<PropertyType> GetAllTypes()
         {
-            return Enum.GetValues(typeof(Type))
-                        .Cast<Type>()
+            return Enum.GetValues(typeof(PropertyType))
+                        .Cast<PropertyType>()
                         .ToList();
         }
 
         public bool EqualsType(PropertySO property)
         {
-            return _type.Equals(property.GetType());
+            return Type.Equals(property.GetType());
         }
 
         #region SUBCLASS_DEFINED_VALUE_TYPE
