@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Gameplay.Items.Properties
 {
-    public abstract class PropertySO : ScriptableObject
+    public abstract class Property: MonoBehaviour, IProperty
     {
         public enum PropertyType
         {
@@ -17,9 +17,8 @@ namespace Gameplay.Items.Properties
 
         [SerializeField]
         public PropertyType Type { get; protected set; }
-        public dynamic Value {get; protected set; }
 
-        public PropertySO(PropertyType type)
+        public Property(PropertyType type)
         {
             Type = type;
         }
@@ -31,28 +30,20 @@ namespace Gameplay.Items.Properties
                         .ToList();
         }
 
-        public bool EqualsType(PropertySO property)
+        #region EQUITABILITY
+        public bool Equals(IProperty other)
+        {
+            Property property = other as Property;
+            return EqualsType(property) && EqualsValue(property);
+        }
+
+        public bool EqualsType(IProperty property)
         {
             return Type.Equals(property.GetType());
         }
 
-        #region SUBCLASS_DEFINED_VALUE_TYPE
+        public abstract bool EqualsValue(IProperty other);
 
-        public bool Equals(PropertySO property)
-        {
-            return EqualsType(property) && EqualsValue(property);
-        }
-
-        public virtual bool EqualsValue(PropertySO property)
-        {
-            return GetValue().Equals(property.GetValue());
-        }
-
-        public virtual object GetValue()
-        {
-            return Value;
-        }
-        
         #endregion
     }
 }

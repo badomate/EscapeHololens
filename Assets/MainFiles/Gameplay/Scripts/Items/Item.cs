@@ -7,11 +7,11 @@ namespace Gameplay.Items
     public class Item : MonoBehaviour
     {
         [SerializeField]
-        private Dictionary<PropertySO.PropertyType, PropertySO> Properties;
+        private Dictionary<Property.PropertyType, Property> Properties;
 
-        public PropertySO GetProperty(PropertySO.PropertyType propertyType)
+        public Property GetProperty(Property.PropertyType propertyType)
         {
-            Properties.TryGetValue(propertyType, out PropertySO property);
+            Properties.TryGetValue(propertyType, out Property property);
             return property;
         }
 
