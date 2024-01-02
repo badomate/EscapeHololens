@@ -17,13 +17,14 @@ namespace Gameplay.Items.Properties
             LowerRight = Back & Right
         }
 
-        // reference object location (the player's, in this case)
+        // Reference object's location (e.g.: the player's body)
         [SerializeField]
         private Transform referenceLocation;
         
+        // This item's current location
         private readonly Transform currentLocation;
 
-        // Relative direction of object
+        // The item's direction relative to the reference object
         private Direction relativeDirection;
 
 
@@ -34,6 +35,8 @@ namespace Gameplay.Items.Properties
             Direction.LowerLeft, Direction.LowerRight
         };
 
+        // How far away the item and reference object must be
+        // for it to be considered a different position
         public static float locationUnitLength = 0.5f;
 
         public LocationProperty(PropertyType type):base(type)

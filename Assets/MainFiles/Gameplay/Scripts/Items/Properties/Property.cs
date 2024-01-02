@@ -7,6 +7,9 @@ namespace Gameplay.Items.Properties
 {
     public abstract class Property: MonoBehaviour, IProperty
     {
+        // To add a new property, add a new type
+        // and create its corresponding class
+        // (inherits from "Property")
         public enum PropertyType
         {
             NONE,

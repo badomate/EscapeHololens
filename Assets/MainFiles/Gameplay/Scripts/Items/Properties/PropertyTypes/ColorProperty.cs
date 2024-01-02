@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Items.Properties
 {
+    // May add more color traits (saturation, luminosity, ...)
     public class ColorProperty : Property
     {
         static readonly Dictionary<Hue, Color> validColors =
@@ -11,6 +12,7 @@ namespace Gameplay.Items.Properties
                 { Hue.RED,Color.red }
             };
 
+        // As per the HSL model
         public enum Hue
         {
             NONE,
@@ -26,6 +28,12 @@ namespace Gameplay.Items.Properties
             Type = PropertyType.Color;
             hue = colorValue;
             matchingColor = FindMatchingColor();
+        }
+
+        // Automatically updates object color based on specified hue
+        public void Start()
+        {
+            gameObject.GetComponent<Material>().color = matchingColor;
         }
 
         #region PROPERTY_SPECIFIC_METHODS
