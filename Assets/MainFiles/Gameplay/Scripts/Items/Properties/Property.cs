@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Gameplay.Items.Properties
 {
+    [Serializable]
     public abstract class Property: MonoBehaviour, IProperty
     {
         // To add a new property, add a new type

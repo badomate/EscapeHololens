@@ -16,11 +16,13 @@ namespace Gameplay.Items
         }
 
         [SerializeField]
-        private int Id { get; set; }
+        private int Id;
 
         public int GetId()
         {
             return Id;
         }
+
+        public bool EqualsId(int id) { return Id == id; }
     }
 }
