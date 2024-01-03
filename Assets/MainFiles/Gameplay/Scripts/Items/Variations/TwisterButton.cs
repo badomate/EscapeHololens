@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Gameplay.Items.Properties;
+using Unity.VisualScripting;
 
 namespace Gameplay.Items.Variations
 {
@@ -9,7 +10,13 @@ namespace Gameplay.Items.Variations
 
         [SerializeField]
         public ButtonEffectsSO buttonEffectsSO;
+/* TBA
+        [SerializeField]
+        private float Cooldown = 1.5f;
 
+        [SerializeField]
+        private float timeSinceClick = 0;
+*/
         public void InvokeClicked()
         {
             Debug.Log("CLICK");

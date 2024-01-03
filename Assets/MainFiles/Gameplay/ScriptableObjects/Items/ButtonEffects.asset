@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionAudio: {fileID: 5437823194537851256, guid: 7dbc9dc41c705804fb88b1585b64d7f3, type: 3}
   effectSuccess: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
-  effectFail: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
+  effectFail: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
   duration: 3

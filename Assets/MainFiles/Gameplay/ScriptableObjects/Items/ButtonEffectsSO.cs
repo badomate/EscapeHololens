@@ -22,7 +22,9 @@ namespace Gameplay.Items
 
         public void PlayClickedSound()
         {
-            if (interactionAudio.isActiveAndEnabled) { 
+            interactionAudio.enabled = true;
+            if (interactionAudio.isActiveAndEnabled) {
+                Debug.Log("Played sfx!");
                 interactionAudio.Play(); 
             }
         }

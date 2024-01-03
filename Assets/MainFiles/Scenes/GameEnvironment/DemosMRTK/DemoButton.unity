@@ -203,6 +203,8 @@ MonoBehaviour:
   PropertyList: []
   Id: 1
   buttonEffectsSO: {fileID: 11400000, guid: 032cbcf2c2c75de4b865d462d822eedf, type: 2}
+  Cooldown: 1.5
+  timeSinceClick: 0
 --- !u!114 &592700048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +224,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
-  m_DistanceCalculationMode: 1
+  m_DistanceCalculationMode: 0
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
@@ -418,9 +420,9 @@ MonoBehaviour:
   smoothSelectionProgress: 1
   distanceSpaceMode: 1
   startPushPlane: 0
-  endPushPlane: 0.2
+  endPushPlane: 0.1
   returnSpeed: 0.25
-  enforceFrontPush: 1
+  enforceFrontPush: 0
   rejectXYRollOff: 1
   rollOffXYDepth: 3
   rejectZRollOff: 0
@@ -780,6 +782,8 @@ MonoBehaviour:
   PropertyList: []
   Id: 1
   buttonEffectsSO: {fileID: 11400000, guid: 032cbcf2c2c75de4b865d462d822eedf, type: 2}
+  Cooldown: 1.5
+  timeSinceClick: 0
 --- !u!114 &1143158619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,7 +803,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
-  m_DistanceCalculationMode: 1
+  m_DistanceCalculationMode: 0
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
@@ -995,9 +999,9 @@ MonoBehaviour:
   smoothSelectionProgress: 1
   distanceSpaceMode: 1
   startPushPlane: 0
-  endPushPlane: 0.2
+  endPushPlane: 0.1
   returnSpeed: 0.25
-  enforceFrontPush: 1
+  enforceFrontPush: 0
   rejectXYRollOff: 1
   rollOffXYDepth: 3
   rejectZRollOff: 0
@@ -1254,6 +1258,8 @@ MonoBehaviour:
   PropertyList: []
   Id: 0
   buttonEffectsSO: {fileID: 11400000, guid: 032cbcf2c2c75de4b865d462d822eedf, type: 2}
+  Cooldown: 1.5
+  timeSinceClick: 0
 --- !u!114 &1179803957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1273,7 +1279,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
-  m_DistanceCalculationMode: 1
+  m_DistanceCalculationMode: 0
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
@@ -1469,9 +1475,9 @@ MonoBehaviour:
   smoothSelectionProgress: 1
   distanceSpaceMode: 1
   startPushPlane: 0
-  endPushPlane: 0.2
+  endPushPlane: 0.1
   returnSpeed: 0.25
-  enforceFrontPush: 1
+  enforceFrontPush: 0
   rejectXYRollOff: 1
   rollOffXYDepth: 3
   rejectZRollOff: 0
@@ -2162,6 +2168,8 @@ MonoBehaviour:
   PropertyList: []
   Id: 0
   buttonEffectsSO: {fileID: 11400000, guid: 032cbcf2c2c75de4b865d462d822eedf, type: 2}
+  Cooldown: 1.5
+  timeSinceClick: 0
 --- !u!114 &1951615060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2181,7 +2189,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
-  m_DistanceCalculationMode: 1
+  m_DistanceCalculationMode: 0
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
@@ -2377,9 +2385,9 @@ MonoBehaviour:
   smoothSelectionProgress: 1
   distanceSpaceMode: 1
   startPushPlane: 0
-  endPushPlane: 0.2
+  endPushPlane: 0.1
   returnSpeed: 0.25
-  enforceFrontPush: 1
+  enforceFrontPush: 0
   rejectXYRollOff: 1
   rollOffXYDepth: 3
   rejectZRollOff: 0
