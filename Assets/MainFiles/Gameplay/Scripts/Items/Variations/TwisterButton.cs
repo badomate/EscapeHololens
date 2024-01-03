@@ -10,10 +10,10 @@ namespace Gameplay.Items.Variations
         [SerializeField]
         public ButtonEffectsSO buttonEffectsSO;
 
-        public void InvokeClicked(int requiredId)
+        public void InvokeClicked()
         {
             Debug.Log("CLICK");
-            bool isCorrect = EqualsId(requiredId);
+            bool isCorrect = EqualsId(PseudoGameManager.Instance.targetId);
             Debug.Log("ID matches? " + isCorrect + "!");
             InvokeClicked(isCorrect);
         }

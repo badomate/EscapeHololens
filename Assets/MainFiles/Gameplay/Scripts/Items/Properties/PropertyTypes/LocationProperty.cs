@@ -20,12 +20,13 @@ namespace Gameplay.Items.Properties
         // Reference object's location (e.g.: the player's body)
         [SerializeField]
         private Transform referenceLocation;
-        
+
         // This item's current location
-        private readonly Transform currentLocation;
+        [SerializeField]
+        private Transform currentLocation;
 
         // The item's direction relative to the reference object
-        private Direction relativeDirection;
+        public Direction relativeDirection;
 
 
         public readonly List<Direction> directions = new List<Direction>() { 
@@ -39,11 +40,15 @@ namespace Gameplay.Items.Properties
         // for it to be considered a different position
         public static float locationUnitLength = 0.5f;
 
-        public LocationProperty(PropertyType type):base(type)
+        public LocationProperty():base(PropertyType.Location)
+        {
+        }
+
+        public void Start()
         {
             currentLocation = transform;
-            Type = PropertyType.Location;
             UpdateRelativeDirection();
+            Debug.Log("LOCATION Start!");
         }
 
         #region PROPERTY_SPECIFIC_METHODS

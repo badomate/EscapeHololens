@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Gameplay.Items.Properties
 {
     [Serializable]
-    public abstract class Property: MonoBehaviour, IProperty
+    public class Property: MonoBehaviour, IProperty
     {
         // To add a new property, add a new type
         // and create its corresponding class
@@ -46,7 +46,7 @@ namespace Gameplay.Items.Properties
             return Type.Equals(property.GetType());
         }
 
-        public abstract bool EqualsValue(IProperty other);
+        public virtual bool EqualsValue(IProperty other) { return false; }
 
         #endregion
     }

@@ -14,14 +14,14 @@ namespace Gameplay.Items.Properties
             CIRCLE
         }
 
-        private Format format;
+        public Format format;
         private GameObject matchingShape;
 
-        public ShapeProperty(PropertyType type, Format formatValue):base(type)
+        public ShapeProperty(Format formatValue):base(PropertyType.Shape)
         {
-            Type = PropertyType.Shape;
             format = formatValue;
             matchingShape = FindMatchingShape();
+            Debug.Log("Shape created!");
         }
 
         #region PROPERTY_SPECIFIC_METHODS
