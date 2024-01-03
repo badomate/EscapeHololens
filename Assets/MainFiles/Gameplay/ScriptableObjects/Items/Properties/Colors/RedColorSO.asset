@@ -15,3 +15,4 @@ MonoBehaviour:
   id: 1
   matchingColor: {r: 0.8, g: 0.24000001, b: 0.24000001, a: 1}
   matchingMaterial: {fileID: 2100000, guid: df9b0339b7325e243842969831c21717, type: 2}
+  replaceableMaterial: {fileID: 2100000, guid: 682110e64314c6e4d940f32c90320927, type: 2}

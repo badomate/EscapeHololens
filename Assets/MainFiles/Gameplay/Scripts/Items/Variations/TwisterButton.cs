@@ -1,7 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using Gameplay.Items.Properties;
-using Unity.VisualScripting;
 
 namespace Gameplay.Items.Variations
 {
@@ -10,18 +7,10 @@ namespace Gameplay.Items.Variations
 
         [SerializeField]
         public ButtonEffectsSO buttonEffectsSO;
-/* TBA
-        [SerializeField]
-        private float Cooldown = 1.5f;
 
-        [SerializeField]
-        private float timeSinceClick = 0;
-*/
         public void InvokeClicked()
         {
-            Debug.Log("CLICK");
             bool isCorrect = EqualsId(PseudoGameManager.Instance.targetId);
-            Debug.Log("ID matches? " + isCorrect + "!");
             InvokeClicked(isCorrect);
         }
 
@@ -33,7 +22,7 @@ namespace Gameplay.Items.Variations
 
         public void PlayClickedSound()
         {
-            buttonEffectsSO.PlayClickedSound();
+            StartCoroutine(buttonEffectsSO.PlayClickedSound(transform));
         }
 
         public void PlayClickedAnimation(bool isCorrect)

@@ -1,10 +1,9 @@
 ﻿using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 namespace Gameplay.Items
 {
-    [CreateAssetMenu(fileName = "ButtonEffects", menuName = "Gameplay/Effects")]
+    [CreateAssetMenu(fileName = "ButtonEffectsSO", menuName = "Gameplay/Items/Effects")]
     public class ButtonEffectsSO : ScriptableObject
     {
         [SerializeField]
@@ -16,16 +15,18 @@ namespace Gameplay.Items
         private GameObject effectFail;
 
         [SerializeField]
-        private float duration = 3.0f;
+        private float duration = 2.0f;
 
         public ButtonEffectsSO() { }
 
-        public void PlayClickedSound()
+        public IEnumerator PlayClickedSound(Transform transform)
         {
-            interactionAudio.enabled = true;
-            if (interactionAudio.isActiveAndEnabled) {
-                Debug.Log("Played sfx!");
-                interactionAudio.Play(); 
+            AudioSource audioInstance = Instantiate(interactionAudio, transform);
+            audioInstance.Play();
+            yield return new WaitForSeconds(audioInstance.clip.length);
+            if (audioInstance != null)
+            {
+                Destroy(audioInstance);
             }
         }
 
