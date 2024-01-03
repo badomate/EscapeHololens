@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.XR.CoreUtils.Datums;
 using UnityEngine;
 
 namespace Gameplay.Items.Properties
@@ -16,6 +15,9 @@ namespace Gameplay.Items.Properties
             LowerLeft = Back & Left,
             LowerRight = Back & Right
         }
+
+        [SerializeField]
+        private static string defaultReferenceTag = "MainCamera";
 
         // Reference object's location (e.g.: the player's body)
         [SerializeField]
@@ -47,11 +49,29 @@ namespace Gameplay.Items.Properties
         public void Start()
         {
             currentLocation = transform;
+            UpdateReferenceObject(defaultReferenceTag);
             UpdateRelativeDirection();
             Debug.Log("LOCATION Start!");
         }
 
         #region PROPERTY_SPECIFIC_METHODS
+
+        public void UpdateReferenceObject(string tag)
+        {
+            if (referenceLocation == null)
+            {
+                Camera[] validCameras = FindObjectsOfType<Camera>();
+                for (int i = 0; i < validCameras.Length; i++)
+                {
+                    Camera camera = validCameras[i];
+                    if (camera.CompareTag(tag))
+                    {
+                        referenceLocation = camera.transform;
+                        break;
+                    }
+                }
+            }
+        }
 
         public Direction GetRelativeDirection()
         {

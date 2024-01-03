@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 
 namespace Gameplay.Items.Properties
@@ -17,7 +14,7 @@ namespace Gameplay.Items.Properties
 
         public void Start()
         {
-            gameObject.GetComponent<MeshRenderer>().material = colorTraitsSO.matchingMaterial;
+            UpdateItemColor();
             Debug.Log("COLOR Start!");
         }
 
@@ -25,6 +22,20 @@ namespace Gameplay.Items.Properties
         #region PROPERTY_SPECIFIC_METHODS
 
         public ColorTraitsSO GetTraits() { return colorTraitsSO; }
+
+        private void UpdateItemColor()
+        {
+            MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+            for (int i = 0; i < meshRenderers.Length; i++)
+            {
+                MeshRenderer meshRenderer = meshRenderers[i];
+                if (meshRenderer.sharedMaterial.Equals(colorTraitsSO.replaceableMaterial))
+                {
+                    meshRenderer.material = colorTraitsSO.matchingMaterial;
+                }
+            }
+        }
 
         #endregion
 

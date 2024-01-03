@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Gameplay.Items
 {
-    [CreateAssetMenu(fileName = "ColorTraits", menuName = "Gameplay/Properties")]
+    [CreateAssetMenu(fileName = "ColorTraitsSO", menuName = "Gameplay/ItemsProperties")]
     public class ColorTraitsSO : ScriptableObject
     {
-        // As per the HSL model
+        // As per the HSV model
         public enum Id
         {
             NONE,
@@ -19,7 +19,12 @@ namespace Gameplay.Items
         public Id id;
         public Color matchingColor;
         public Material matchingMaterial;
+        public Material replaceableMaterial;
 
-        public bool Equals(ColorTraitsSO other) { return id == other.id; }
+        public bool Equals(ColorTraitsSO other) 
+        { 
+            return  id == other.id && 
+                    replaceableMaterial == other.replaceableMaterial;
+        }
     }
 }
