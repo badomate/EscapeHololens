@@ -1,14 +1,15 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Gameplay.Items;
 
-namespace Twister
+namespace Gameplay
 {
 	public class TwisterManager : MonoBehaviour {
 		public static event Action OnLevelClear;
 		public static event Action OnGameClear;
-		public static event Action OnCorrectGuess;
-		public static event Action OnWrongGuess;
+		public static event Action<TwisterButton> OnCorrectGuess;
+		public static event Action<TwisterButton> OnWrongGuess;
 
         internal enum Players {
 			player1,
@@ -56,11 +57,17 @@ namespace Twister
 		internal bool TryGuess(TwisterButton button) {
 			if(button == levels[level].goal) {
 				successFlag = true;
-				OnCorrectGuess?.Invoke();
+				OnCorrectGuess?.Invoke(button);
 				return true;
 			}
-			OnWrongGuess?.Invoke();
+			OnWrongGuess?.Invoke(button);
 			return false;
+		}
+
+		// Should listen to OnCorrectGuess and OnWrongGuess
+		internal void ActivateButton(TwisterButton button, bool isGoal)
+		{
+			button.ReactToClick(isGoal);
 		}
 
 	}

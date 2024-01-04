@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Gameplay.Items
+namespace Gameplay.Items.Properties
 {
     [CreateAssetMenu(fileName = "ColorTraitsSO", menuName = "Gameplay/ItemsProperties")]
     public class ColorTraitsSO : ScriptableObject

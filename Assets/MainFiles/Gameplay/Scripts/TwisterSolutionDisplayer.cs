@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Twister
+namespace Gameplay
 {
     internal class TwisterSolutionDisplayer : MonoBehaviour
     {
