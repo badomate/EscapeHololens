@@ -29,6 +29,10 @@ namespace Gameplay
 		int level;
 		bool successFlag;
 
+		private void Start() {
+			StartGame();
+		}
+
 		public void StartGame() {
 			instance = this;
 			StartCoroutine(nameof(MainLoop));
@@ -37,7 +41,7 @@ namespace Gameplay
 		IEnumerator MainLoop() {
 			for (level = 0; level < levels.Length; level++)
 			{
-				levels[level].Spawn();
+				levels[level].Spawn(this.transform.position);
 				
 				if(levels[level].guesser ==Players.player2) {
 					player1Displayer.DisplaySolution(levels[level]);
