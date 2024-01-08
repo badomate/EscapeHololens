@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Microsoft.MixedReality.OpenXR.Remoting;
+using UnityEngine;
 
 namespace Gameplay
 {
@@ -20,7 +21,15 @@ namespace Gameplay
             else
             {
                 Instance = this;
+                //HoloRemoting();
             }
+        }
+
+        public void HoloRemoting()
+        {
+            RemotingConnectConfiguration configuration =
+                    new RemotingConnectConfiguration { RemotePort = 8265, MaxBitrateKbps = 20000 };
+            AppRemoting.StartConnectingToPlayer(configuration);
         }
     }
 }

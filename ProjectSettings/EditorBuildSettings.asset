@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/MainFiles/Scenes/GameEnvironment/DemosMRTK/DemoButton.unity
+    guid: d9b7e0a4c49be044cb529b4a4e089223
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 4b519f093ad668c439feef0ff68945d3, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2040ac0255d48d64d8c587131f25bb5d, type: 2}
