@@ -73,19 +73,23 @@ namespace Gameplay.Items.Properties
             }
         }
 
-        public Direction GetRelativeDirection()
+        public Direction GetRelativeDirection(Transform reference = null)
         {
-            return relativeDirection;
+            if (reference == null) return relativeDirection;
+            else return ComputeRelativeDirection(reference);
         }
 
-        public Vector3 GetDirectionVector()
+        public Vector3 GetDirectionVector(Transform reference = null)
         {
-            return referenceLocation.position - currentLocation.position;
+            if (reference == null)
+                reference = referenceLocation;
+            
+            return reference.position - currentLocation.position;
         }
 
-        public Direction ComputeRelativeDirection()
+        public Direction ComputeRelativeDirection(Transform reference)
         {
-            Vector3 relativePosition = GetDirectionVector();
+            Vector3 relativePosition = GetDirectionVector(reference);
             relativePosition.y = 0;
             relativePosition.Normalize();
             Direction relativeDirection = Direction.NONE;
@@ -105,7 +109,7 @@ namespace Gameplay.Items.Properties
 
         public Direction UpdateRelativeDirection()
         {
-            relativeDirection = ComputeRelativeDirection();
+            relativeDirection = ComputeRelativeDirection(this.referenceLocation);
             return relativeDirection;
         }
 
