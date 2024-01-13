@@ -11,9 +11,9 @@ namespace Gameplay
 		[SerializeField]
         internal TwisterButton goal;
 
-        internal void Spawn()
+        internal void Spawn(Vector3 spawnPosition)
         {
-            throw new NotImplementedException();
+            Instantiate(gameObject, spawnPosition, Quaternion.identity);
         }
     }
 }
