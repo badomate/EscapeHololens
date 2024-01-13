@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// Note: may be deprecated, since HoloLens already handles this.
+// For testing purposes, we already have the HL input simulator.
 public class TouchReactor : MonoBehaviour
 {
     Color defaultColor;

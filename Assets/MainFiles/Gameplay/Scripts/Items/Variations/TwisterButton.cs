@@ -1,20 +1,22 @@
+using Gameplay;
+using Gameplay.Items.Properties;
 using UnityEngine;
 
-namespace Gameplay.Items.Variations
+namespace Gameplay.Items
 {
+    [RequireComponent(typeof(ColorProperty), typeof(ShapeProperty))]
     public class TwisterButton : Item
     {
-
         [SerializeField]
         public ButtonEffectsSO buttonEffectsSO;
 
-        public void InvokeClicked()
+        // Should listen to the button's "OnClick" event
+        public void ValidateGoal()
         {
-            bool isCorrect = EqualsId(PseudoGameManager.Instance.targetId);
-            InvokeClicked(isCorrect);
+            TwisterManager.instance.TryGuess(this);
         }
 
-        private void InvokeClicked(bool isCorrect)
+        public void ReactToClick(bool isCorrect)
         {
             PlayClickedSound();
             PlayClickedAnimation(isCorrect);

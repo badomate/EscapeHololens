@@ -5,6 +5,8 @@ namespace Gameplay.Items.Properties
 {
     public class ShapeProperty : Property
     {
+        [field: SerializeField]
+        public ShapeTraitsSO ShapeTraitsSO {get; private set;}
         public static readonly Dictionary<Format, GameObject> validShapes;
 
         public enum Format

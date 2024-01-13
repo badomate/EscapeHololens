@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Gameplay.Items
+namespace Gameplay.Items.Properties
 {
-    [CreateAssetMenu(fileName = "ColorTraitsSO", menuName = "Gameplay/ItemsProperties")]
+    [CreateAssetMenu(fileName = "ColorTraitsSO", menuName = "Gameplay/Item Properties/Color")]
     public class ColorTraitsSO : ScriptableObject
     {
         // As per the HSV model
