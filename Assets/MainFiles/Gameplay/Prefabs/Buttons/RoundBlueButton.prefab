@@ -478,7 +478,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ShapeTraitsSO>k__BackingField: {fileID: 11400000, guid: 89d212feb3e11c84da0306e33d5f067a, type: 2}
-  format: 2
 --- !u!114 &3124941235979594969
 MonoBehaviour:
   m_ObjectHideFlags: 0
