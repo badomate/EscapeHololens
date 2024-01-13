@@ -10,6 +10,7 @@ namespace Gameplay.Items
         public ButtonEffectsSO buttonEffectsSO;
 
         // Should listen to the button's "OnClick" event
+        [ContextMenu("Press")]
         public void ValidateGoal()
         {
             TwisterManager.instance.TryGuess(this);
