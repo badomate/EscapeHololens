@@ -13,7 +13,9 @@ namespace Gameplay.Items
         {
             NONE,
             RED,
-            BLUE
+            BLUE,
+            GREEN,
+            YELLOW
         }
 
         public Id id;

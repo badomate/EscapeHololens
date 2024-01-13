@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 3124941235979594969}
   - component: {fileID: 3124941235979594974}
   m_Layer: 0
-  m_Name: SquareRedButton
+  m_Name: SquareGreenButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb94d179d4ebbf4aad70b8d51ea5b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorTraitsSO: {fileID: 11400000, guid: 24a70ab0d73079340934dead1959f0f9, type: 2}
+  colorTraitsSO: {fileID: 11400000, guid: 343679d983ef851408112dbc4f8666cd, type: 2}
 --- !u!114 &3124941235979594974
 MonoBehaviour:
   m_ObjectHideFlags: 0

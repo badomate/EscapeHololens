@@ -11,7 +11,8 @@ namespace Gameplay.Items.Properties
         {
             NONE,
             SQUARE,
-            CIRCLE
+            CIRCLE,
+            TRIANGLE
         }
 
         public Format format;
