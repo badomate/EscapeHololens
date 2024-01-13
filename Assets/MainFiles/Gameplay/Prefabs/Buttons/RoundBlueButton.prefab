@@ -459,7 +459,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f298a07ad10054689557279057cc97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PropertyList: []
+  PropertyList:
+  - {fileID: 3124941235979594968}
+  - {fileID: 3124941235979594969}
+  - {fileID: 3124941235979594974}
   Id: -1
   buttonEffectsSO: {fileID: 11400000, guid: 032cbcf2c2c75de4b865d462d822eedf, type: 2}
 --- !u!114 &3124941235979594968
@@ -474,6 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abeaa24ab46d0144ada56e76e760a7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ShapeTraitsSO>k__BackingField: {fileID: 11400000, guid: 89d212feb3e11c84da0306e33d5f067a, type: 2}
   format: 2
 --- !u!114 &3124941235979594969
 MonoBehaviour:
@@ -487,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb94d179d4ebbf4aad70b8d51ea5b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorTraitsSO: {fileID: 11400000, guid: 2090c79cfe1a31247a4ffeb1696dfe9f, type: 2}
+  <ColorTraitsSO>k__BackingField: {fileID: 11400000, guid: 2090c79cfe1a31247a4ffeb1696dfe9f, type: 2}
 --- !u!114 &3124941235979594974
 MonoBehaviour:
   m_ObjectHideFlags: 0
