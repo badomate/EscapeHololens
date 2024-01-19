@@ -342,13 +342,13 @@ MonoBehaviour:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 0
   <SelectThreshold>k__BackingField: 0.9
-  <DeselectThreshold>k__BackingField: 0.1
+  <DeselectThreshold>k__BackingField: 0.7
   <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
   <FarDwellTime>k__BackingField: 1
-  allowSelectByVoice: 1
+  allowSelectByVoice: 0
   speechRecognitionKeyword: select
   <VoiceRequiresFocus>k__BackingField: 1
   <SelectRequiresHover>k__BackingField: 0
@@ -364,16 +364,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3124941235979594971}
-        m_TargetAssemblyTypeName: Gameplay.Items.Variations.TwisterButton, Assembly-CSharp
-        m_MethodName: InvokeClicked
+        m_TargetAssemblyTypeName: Gameplay.Items.TwisterButton, Assembly-CSharp
+        m_MethodName: ValidateGoal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
@@ -384,9 +384,9 @@ MonoBehaviour:
   smoothSelectionProgress: 1
   distanceSpaceMode: 1
   startPushPlane: -0.37946695
-  endPushPlane: -0.17255297
+  endPushPlane: -0.272553
   returnSpeed: 0.25
-  enforceFrontPush: 1
+  enforceFrontPush: 0
   rejectXYRollOff: 1
   rollOffXYDepth: 3
   rejectZRollOff: 0

@@ -259,7 +259,7 @@ MonoBehaviour:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 0
   <SelectThreshold>k__BackingField: 0.9
-  <DeselectThreshold>k__BackingField: 0.1
+  <DeselectThreshold>k__BackingField: 0.7
   <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
@@ -280,17 +280,17 @@ MonoBehaviour:
   <OnClicked>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3124941235979594971}
-        m_TargetAssemblyTypeName: Gameplay.Items.Variations.TwisterButton, Assembly-CSharp
-        m_MethodName: InvokeClicked
+      - m_Target: {fileID: 3124941235979594975}
+        m_TargetAssemblyTypeName: Gameplay.Items.TwisterButton, Assembly-CSharp
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078a1979da1a56740b89540ad9e505b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingVisuals: {fileID: 0}
+  movingVisuals: {fileID: 7171627858065465128}
 --- !u!114 &2293084344576343534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +395,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ShapeTraitsSO>k__BackingField: {fileID: 11400000, guid: 476edfa96a194fa49a10222aae72762b, type: 2}
-  format: 3
 --- !u!114 &3124941235979594969
 MonoBehaviour:
   m_ObjectHideFlags: 0

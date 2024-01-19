@@ -8,8 +8,8 @@ namespace Gameplay
 	public class TwisterManager : MonoBehaviour {
 		public static event Action OnLevelClear;
 		public static event Action OnGameClear;
-		public static event Action<TwisterButton> OnCorrectGuess;
-		public static event Action<TwisterButton> OnWrongGuess;
+		public static event Action<TwisterButton, bool> OnCorrectGuess;
+		public static event Action<TwisterButton, bool> OnWrongGuess;
 
         internal enum Players {
 			player1,
@@ -35,6 +35,10 @@ namespace Gameplay
 
 		public void StartGame() {
 			instance = this;
+
+			OnCorrectGuess += ActivateButton;
+			OnWrongGuess += ActivateButton;
+            
 			StartCoroutine(nameof(MainLoop));
 		}
 
@@ -58,15 +62,15 @@ namespace Gameplay
 			OnGameClear?.Invoke();
 		}
 
-		internal bool TryGuess(TwisterButton button) {
+		public bool TryGuess(TwisterButton button) {
 			if(button == levels[level].goal) {
-				successFlag = true;
-				OnCorrectGuess?.Invoke(button);
+                successFlag = true;
+				OnCorrectGuess?.Invoke(button, true);
 				return true;
 			}
-			OnWrongGuess?.Invoke(button);
+            OnWrongGuess?.Invoke(button, false);
 			return false;
-		}
+        }
 
 		// Should listen to OnCorrectGuess and OnWrongGuess
 		internal void ActivateButton(TwisterButton button, bool isGoal)
