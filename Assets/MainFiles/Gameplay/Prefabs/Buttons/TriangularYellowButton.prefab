@@ -280,9 +280,9 @@ MonoBehaviour:
   <OnClicked>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3124941235979594975}
+      - m_Target: {fileID: 3124941235979594971}
         m_TargetAssemblyTypeName: Gameplay.Items.TwisterButton, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ValidateGoal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -26,7 +26,7 @@ namespace Gameplay.Items
             yield return new WaitForSeconds(audioInstance.clip.length);
             if (audioInstance != null)
             {
-                Destroy(audioInstance);
+                Destroy(audioInstance.gameObject);
             }
         }
 
