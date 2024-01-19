@@ -10,6 +10,11 @@ namespace Gameplay.Items
         [SerializeField]
         public ButtonEffectsSO buttonEffectsSO;
 
+        public void RegisterId()
+        {
+            Id = gameObject.GetInstanceID();
+        }
+
         // Should listen to the button's "OnClick" event
         public void ValidateGoal()
         {

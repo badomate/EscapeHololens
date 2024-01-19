@@ -21,7 +21,7 @@ namespace Gameplay
 		[SerializeField]
 		internal TwisterSolutionDisplayer player2Displayer;
 
-		[SerializeField]
+		[SerializeReference]
 		internal TwisterLevel[] levels;
 
 		internal static TwisterManager instance;
@@ -45,9 +45,9 @@ namespace Gameplay
 		IEnumerator MainLoop() {
 			for (level = 0; level < levels.Length; level++)
 			{
-				levels[level].Spawn(this.transform.position);
-				
-				if(levels[level].guesser ==Players.player2) {
+                levels[level].Spawn(this.transform.position);
+					
+                if (levels[level].guesser ==Players.player2) {
 					player1Displayer.DisplaySolution(levels[level]);
 				}
 				else {
@@ -63,7 +63,7 @@ namespace Gameplay
 		}
 
 		public bool TryGuess(TwisterButton button) {
-			if(button == levels[level].goal) {
+			if(button.EqualsId(levels[level].goal.GetId())) {
                 successFlag = true;
 				OnCorrectGuess?.Invoke(button, true);
 				return true;

@@ -55,7 +55,7 @@ namespace Gameplay.Items
         }
 
         [SerializeField]
-        private int Id = -1;
+        public int Id = -1;
 
         public int GetId()
         {

@@ -51,7 +51,6 @@ namespace Gameplay.Items.Properties
             currentLocation = transform;
             UpdateReferenceObject(defaultReferenceTag);
             UpdateRelativeDirection();
-            Debug.Log("LOCATION Start!");
         }
 
         #region PROPERTY_SPECIFIC_METHODS

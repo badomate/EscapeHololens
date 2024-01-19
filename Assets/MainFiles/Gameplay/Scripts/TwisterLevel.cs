@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Gameplay.Items;
+using Unity.VisualScripting;
 
 namespace Gameplay
 {
@@ -8,13 +9,14 @@ namespace Gameplay
     {
 		[SerializeField]
         internal TwisterManager.Players guesser;
-		[SerializeField]
+		[SerializeReference]
         internal TwisterButton goal;
 
         internal void Spawn(Vector3 spawnPosition)
         {
-            GameObject instancedLevel = Instantiate(gameObject, spawnPosition, Quaternion.identity);
-            ValidateGoalInstance(instancedLevel);
+            ValidateInstanceIds();
+            Instantiate(gameObject, spawnPosition, Quaternion.identity).GetComponent<TwisterLevel>();
+            //ValidateGoalInstance(instancedLevel);
             
         }
 
@@ -29,6 +31,15 @@ namespace Gameplay
                     goal = buttons[i];
                     break;
                 }
+            }
+        }
+
+        internal void ValidateInstanceIds()
+        {
+            TwisterButton[] buttons = GetComponentsInChildren<TwisterButton>();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].RegisterId();
             }
         }
     }
