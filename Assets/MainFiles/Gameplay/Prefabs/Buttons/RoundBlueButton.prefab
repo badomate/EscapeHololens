@@ -146,7 +146,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3124941235979594975}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
@@ -155,7 +155,7 @@ Transform:
   - {fileID: 3152357942857192063}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!65 &9165196994783368285
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -342,13 +342,13 @@ MonoBehaviour:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 0
   <SelectThreshold>k__BackingField: 0.9
-  <DeselectThreshold>k__BackingField: 0.1
+  <DeselectThreshold>k__BackingField: 0.7
   <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
   <FarDwellTime>k__BackingField: 1
-  allowSelectByVoice: 1
+  allowSelectByVoice: 0
   speechRecognitionKeyword: select
   <VoiceRequiresFocus>k__BackingField: 1
   <SelectRequiresHover>k__BackingField: 0
@@ -364,16 +364,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3124941235979594971}
-        m_TargetAssemblyTypeName: Gameplay.Items.Variations.TwisterButton, Assembly-CSharp
-        m_MethodName: InvokeClicked
+        m_TargetAssemblyTypeName: Gameplay.Items.TwisterButton, Assembly-CSharp
+        m_MethodName: ValidateGoal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
@@ -384,9 +384,9 @@ MonoBehaviour:
   smoothSelectionProgress: 1
   distanceSpaceMode: 1
   startPushPlane: -0.37946695
-  endPushPlane: -0.17255297
+  endPushPlane: -0.272553
   returnSpeed: 0.25
-  enforceFrontPush: 1
+  enforceFrontPush: 0
   rejectXYRollOff: 1
   rollOffXYDepth: 3
   rejectZRollOff: 0
@@ -459,7 +459,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f298a07ad10054689557279057cc97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PropertyList: []
+  PropertyList:
+  - {fileID: 3124941235979594968}
+  - {fileID: 3124941235979594969}
+  - {fileID: 3124941235979594974}
   Id: -1
   buttonEffectsSO: {fileID: 11400000, guid: 032cbcf2c2c75de4b865d462d822eedf, type: 2}
 --- !u!114 &3124941235979594968
@@ -474,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abeaa24ab46d0144ada56e76e760a7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  format: 2
+  <ShapeTraitsSO>k__BackingField: {fileID: 11400000, guid: 89d212feb3e11c84da0306e33d5f067a, type: 2}
 --- !u!114 &3124941235979594969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb94d179d4ebbf4aad70b8d51ea5b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorTraitsSO: {fileID: 11400000, guid: 2090c79cfe1a31247a4ffeb1696dfe9f, type: 2}
+  <ColorTraitsSO>k__BackingField: {fileID: 11400000, guid: 2090c79cfe1a31247a4ffeb1696dfe9f, type: 2}
 --- !u!114 &3124941235979594974
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,7 +15,6 @@ namespace Gameplay.Items.Properties
         public void Start()
         {
             UpdateItemColor();
-            Debug.Log("COLOR Start!");
         }
 
 

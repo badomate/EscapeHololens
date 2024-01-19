@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Gameplay.Items;
+using Unity.VisualScripting;
 
 namespace Gameplay
 {
@@ -8,12 +9,38 @@ namespace Gameplay
     {
 		[SerializeField]
         internal TwisterManager.Players guesser;
-		[SerializeField]
+		[SerializeReference]
         internal TwisterButton goal;
 
         internal void Spawn(Vector3 spawnPosition)
         {
-            Instantiate(gameObject, spawnPosition, Quaternion.identity);
+            ValidateInstanceIds();
+            Instantiate(gameObject, spawnPosition, Quaternion.identity).GetComponent<TwisterLevel>();
+            //ValidateGoalInstance(instancedLevel);
+            
+        }
+
+        // To get around Unity's lack of support for nested prefab instancing
+        internal void ValidateGoalInstance(GameObject instancedLevel)
+        {
+            TwisterButton[] buttons = instancedLevel.GetComponentsInChildren<TwisterButton>();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].transform.localPosition == goal.transform.localPosition)
+                {
+                    goal = buttons[i];
+                    break;
+                }
+            }
+        }
+
+        internal void ValidateInstanceIds()
+        {
+            TwisterButton[] buttons = GetComponentsInChildren<TwisterButton>();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].RegisterId();
+            }
         }
     }
 }
