@@ -22,5 +22,6 @@ namespace Gameplay.Items.Properties
 
         public GameObject representation3D;
 
+        public AnimationClip gesture;
     }
 }

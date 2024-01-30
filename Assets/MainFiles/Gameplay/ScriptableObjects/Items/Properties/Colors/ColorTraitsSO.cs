@@ -22,7 +22,7 @@ namespace Gameplay.Items.Properties
         public Color matchingColor;
         public Material matchingMaterial;
         public Material replaceableMaterial;
-
+        public AnimationClip gesture;
         public bool Equals(ColorTraitsSO other) 
         { 
             return  id == other.id && 
