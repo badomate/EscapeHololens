@@ -1,13 +1,19 @@
 using Gameplay;
+using Gameplay.Items.Properties;
 using UnityEngine;
 
 namespace Gameplay.Items
 {
+    [RequireComponent(typeof(ColorProperty), typeof(ShapeProperty))]
     public class TwisterButton : Item
     {
-
         [SerializeField]
         public ButtonEffectsSO buttonEffectsSO;
+
+        public void RegisterId()
+        {
+            Id = gameObject.GetInstanceID();
+        }
 
         // Should listen to the button's "OnClick" event
         [ContextMenu("Press")]

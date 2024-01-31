@@ -5,8 +5,8 @@ namespace Gameplay.Items.Properties
     // May add more color traits (saturation, luminosity, ...)
     public class ColorProperty : Property
     {
-        [SerializeField]
-        private ColorTraitsSO colorTraitsSO;
+        [field: SerializeField]
+        public ColorTraitsSO ColorTraitsSO { get; private set;}
 
         public ColorProperty() : base(PropertyType.Color)
         {
@@ -15,13 +15,10 @@ namespace Gameplay.Items.Properties
         public void Start()
         {
             UpdateItemColor();
-            Debug.Log("COLOR Start!");
         }
 
 
         #region PROPERTY_SPECIFIC_METHODS
-
-        public ColorTraitsSO GetTraits() { return colorTraitsSO; }
 
         private void UpdateItemColor()
         {
@@ -30,9 +27,9 @@ namespace Gameplay.Items.Properties
             for (int i = 0; i < meshRenderers.Length; i++)
             {
                 MeshRenderer meshRenderer = meshRenderers[i];
-                if (meshRenderer.sharedMaterial.Equals(colorTraitsSO.replaceableMaterial))
+                if (meshRenderer.sharedMaterial.Equals(ColorTraitsSO.replaceableMaterial))
                 {
-                    meshRenderer.material = colorTraitsSO.matchingMaterial;
+                    meshRenderer.material = ColorTraitsSO.matchingMaterial;
                 }
             }
         }
@@ -44,7 +41,7 @@ namespace Gameplay.Items.Properties
         public override bool EqualsValue(IProperty other)
         {
             ColorProperty colorProperty = other as ColorProperty;
-            return colorTraitsSO.Equals(colorProperty.GetTraits());
+            return ColorTraitsSO.Equals(colorProperty.ColorTraitsSO);
         }
 
         #endregion

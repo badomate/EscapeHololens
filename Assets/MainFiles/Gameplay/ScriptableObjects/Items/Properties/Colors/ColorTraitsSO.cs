@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Gameplay.Items.Properties
 {
-    [CreateAssetMenu(fileName = "ColorTraitsSO", menuName = "Gameplay/ItemsProperties")]
+    [CreateAssetMenu(fileName = "ColorTraitsSO", menuName = "Gameplay/Item Properties/Color")]
     public class ColorTraitsSO : ScriptableObject
     {
         // As per the HSV model
@@ -13,14 +13,16 @@ namespace Gameplay.Items.Properties
         {
             NONE,
             RED,
-            BLUE
+            BLUE,
+            GREEN,
+            YELLOW
         }
 
         public Id id;
         public Color matchingColor;
         public Material matchingMaterial;
         public Material replaceableMaterial;
-
+        public AnimationClip gesture;
         public bool Equals(ColorTraitsSO other) 
         { 
             return  id == other.id && 

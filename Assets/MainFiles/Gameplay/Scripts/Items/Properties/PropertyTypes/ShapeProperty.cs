@@ -1,47 +1,34 @@
-using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 namespace Gameplay.Items.Properties
 {
     public class ShapeProperty : Property
     {
-        public static readonly Dictionary<Format, GameObject> validShapes;
+        [field: SerializeField]
+        public ShapeTraitsSO ShapeTraitsSO {get; private set;}
 
-        public enum Format
+        public ShapeProperty():base(PropertyType.Shape)
         {
-            NONE,
-            SQUARE,
-            CIRCLE
         }
 
-        public Format format;
-        private GameObject matchingShape;
-
-        public ShapeProperty(Format formatValue):base(PropertyType.Shape)
+        public void Start()
         {
-            format = formatValue;
-            matchingShape = FindMatchingShape();
-            Debug.Log("Shape created!");
+            // UpdateItemShape();
         }
 
         #region PROPERTY_SPECIFIC_METHODS
-        public Format GetFormat()
-        {
-            return format;
-        }
 
-        protected GameObject GetMatchingShape() { return matchingShape; }
+        public ShapeTraitsSO GetTraits() { return ShapeTraitsSO; }
 
-        private GameObject FindMatchingShape()
+        // Requires a shape holder with tag "Interactable"
+        // Which is a gameobject that holds the shape components
+        private void UpdateItemShape()
         {
-            if (validShapes.ContainsKey(format))
-            {
-                return validShapes.GetValueOrDefault(format);
-            }
-            else
-            {
-                return GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            }
+            Transform shapeHolder = ObjectManipulation.FindFirstChildWithTag(gameObject, "Interactable");
+            if (shapeHolder != null)
+                Destroy(shapeHolder.gameObject);
+            Instantiate(ShapeTraitsSO.representation3D, shapeHolder);
         }
 
         #endregion
@@ -50,13 +37,9 @@ namespace Gameplay.Items.Properties
         public override bool EqualsValue(IProperty other)
         {
             ShapeProperty shapeProperty = other as ShapeProperty;
-            return EqualsFormat(shapeProperty);
+            return ShapeTraitsSO.Equals(shapeProperty.GetTraits());
         }
 
-        public bool EqualsFormat(ShapeProperty other)
-        {
-            return format.Equals(other.GetFormat());
-        }
         #endregion
     }
 }

@@ -17,8 +17,8 @@ namespace Gameplay.Items
             Properties = new Dictionary<Property.PropertyType, Property>();
         }
 
-        public void Start()
-        {
+        void SetProperties() {
+            Properties.Clear();
             PropertyList = gameObject.GetComponents<Property>();
             for (int i = 0; i < PropertyList.Length; i++)
             {
@@ -30,6 +30,24 @@ namespace Gameplay.Items
             }
         }
 
+        public void Start()
+        {
+            SetProperties();
+        }
+
+        private void OnValidate() {
+            SetProperties();
+        }
+
+        public T GetProperty<T>() where T : Property
+        {
+            foreach (Property item in Properties.Values)
+            {
+                if (item is T t) return t;
+            }
+            return null;
+        }
+
         public Property GetProperty(Property.PropertyType propertyType)
         {
             Properties.TryGetValue(propertyType, out Property property);
@@ -37,7 +55,7 @@ namespace Gameplay.Items
         }
 
         [SerializeField]
-        private int Id = -1;
+        public int Id = -1;
 
         public int GetId()
         {

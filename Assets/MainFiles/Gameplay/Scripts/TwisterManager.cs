@@ -8,8 +8,11 @@ namespace Gameplay
 	public class TwisterManager : MonoBehaviour {
 		public static event Action OnLevelClear;
 		public static event Action OnGameClear;
-		public static event Action<TwisterButton> OnCorrectGuess;
-		public static event Action<TwisterButton> OnWrongGuess;
+
+		public static event Action<TwisterButton, bool> OnCorrectGuess;
+		public static event Action<TwisterButton, bool> OnWrongGuess;
+		public static event Action<TwisterLevel> OnP1Display;
+		public static event Action<TwisterLevel> OnP2Display;
 
         internal enum Players {
 			player1,
@@ -21,7 +24,7 @@ namespace Gameplay
 		[SerializeField]
 		internal TwisterSolutionDisplayer player2Displayer;
 
-		[SerializeField]
+		[SerializeReference]
 		internal TwisterLevel[] levels;
 
 		internal static TwisterManager instance;
@@ -29,21 +32,31 @@ namespace Gameplay
 		int level;
 		bool successFlag;
 
+		private void Start() {
+			StartGame();
+		}
+
 		public void StartGame() {
 			instance = this;
+
+			OnCorrectGuess += ActivateButton;
+			OnWrongGuess += ActivateButton;
+            
 			StartCoroutine(nameof(MainLoop));
 		}
 
 		IEnumerator MainLoop() {
 			for (level = 0; level < levels.Length; level++)
 			{
-				levels[level].Spawn();
-				
-				if(levels[level].guesser ==Players.player2) {
+                levels[level].Spawn(this.transform.position);
+					
+                if (levels[level].guesser ==Players.player2) {
 					player1Displayer.DisplaySolution(levels[level]);
+					OnP1Display.Invoke(levels[level]);
 				}
 				else {
 					player2Displayer.DisplaySolution(levels[level]);
+					OnP2Display.Invoke(levels[level]);
 				}
 				while(!successFlag) {
 					yield return new WaitForEndOfFrame();
@@ -54,15 +67,15 @@ namespace Gameplay
 			OnGameClear?.Invoke();
 		}
 
-		internal bool TryGuess(TwisterButton button) {
-			if(button == levels[level].goal) {
-				successFlag = true;
-				OnCorrectGuess?.Invoke(button);
+		public bool TryGuess(TwisterButton button) {
+			if(button.EqualsId(levels[level].goal.GetId())) {
+                successFlag = true;
+				OnCorrectGuess?.Invoke(button, true);
 				return true;
 			}
-			OnWrongGuess?.Invoke(button);
+            OnWrongGuess?.Invoke(button, false);
 			return false;
-		}
+        }
 
 		// Should listen to OnCorrectGuess and OnWrongGuess
 		internal void ActivateButton(TwisterButton button, bool isGoal)
