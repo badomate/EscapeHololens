@@ -15,3 +15,4 @@ MonoBehaviour:
   id: 2
   representation2D: {fileID: 21300000, guid: efd5f092592442e4ca3079d8eaa16213, type: 3}
   representation3D: {fileID: 0}
+  gesture: {fileID: -4012082503761777779, guid: 9002c4854f273ee4eb9d1203abf5fe22, type: 3}
