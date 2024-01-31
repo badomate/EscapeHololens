@@ -8,8 +8,11 @@ namespace Gameplay
 	public class TwisterManager : MonoBehaviour {
 		public static event Action OnLevelClear;
 		public static event Action OnGameClear;
+
 		public static event Action<TwisterButton, bool> OnCorrectGuess;
 		public static event Action<TwisterButton, bool> OnWrongGuess;
+		public static event Action<TwisterLevel> OnP1Display;
+		public static event Action<TwisterLevel> OnP2Display;
 
         internal enum Players {
 			player1,
@@ -49,9 +52,11 @@ namespace Gameplay
 					
                 if (levels[level].guesser ==Players.player2) {
 					player1Displayer.DisplaySolution(levels[level]);
+					OnP1Display.Invoke(levels[level]);
 				}
 				else {
 					player2Displayer.DisplaySolution(levels[level]);
+					OnP2Display.Invoke(levels[level]);
 				}
 				while(!successFlag) {
 					yield return new WaitForEndOfFrame();

@@ -5,14 +5,15 @@ using Unity.VisualScripting;
 
 namespace Gameplay
 {
-    internal class TwisterLevel : MonoBehaviour
+    public class TwisterLevel : MonoBehaviour
     {
 		[SerializeField]
         internal TwisterManager.Players guesser;
-		[SerializeReference]
-        internal TwisterButton goal;
 
-        internal void Spawn(Vector3 spawnPosition)
+		[SerializeReference]
+        public TwisterButton goal;
+
+        public void Spawn(Vector3 spawnPosition)
         {
             ValidateInstanceIds();
             Instantiate(gameObject, spawnPosition, Quaternion.identity).GetComponent<TwisterLevel>();
