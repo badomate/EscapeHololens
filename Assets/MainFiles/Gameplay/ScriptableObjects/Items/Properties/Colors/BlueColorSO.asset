@@ -16,3 +16,4 @@ MonoBehaviour:
   matchingColor: {r: 0.22352943, g: 0.5529412, b: 0.56078434, a: 1}
   matchingMaterial: {fileID: 2100000, guid: 0732466f77b432d4b916c29f50a7b461, type: 2}
   replaceableMaterial: {fileID: 2100000, guid: 682110e64314c6e4d940f32c90320927, type: 2}
+  gesture: {fileID: 6049900397673533927, guid: 9002c4854f273ee4eb9d1203abf5fe22, type: 3}
