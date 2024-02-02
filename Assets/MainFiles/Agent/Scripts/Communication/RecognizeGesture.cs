@@ -19,13 +19,21 @@ namespace Agent.Communication
         TURN_LEFT,
         TURN_RIGHT,
 
-        VICTORY,
-        SUPERMAN,
-        UNRECOGNIZED,
-        AMBIGUOUS,
+        CIRCLE,
+        SQUARE,
 
-        CAMERA_LEFT,
-        CAMERA_RIGHT,
+        RED,
+        BLUE,
+
+        NEW_WORD,
+        ATTENTION,
+        YES,
+        NO,
+
+        VICTORY,
+
+        UNRECOGNIZED,
+        AMBIGUOUS
     }
 
     public class RecognizeGesture : MonoBehaviour
