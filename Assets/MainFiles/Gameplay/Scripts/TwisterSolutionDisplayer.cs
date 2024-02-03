@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Gameplay.Items;
 using Gameplay.Items.Properties;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,6 +45,9 @@ namespace Gameplay
                 if(position.x > maxX) maxX = position.x;
                 if(position.z < minY) minY = position.z;
                 if(position.z > maxY) maxY = position.z;
+                
+                if(minX == maxX) maxX -= 0.1f;
+                if(minY == maxY) maxY -= 0.1f;
             }
 
             float xPosScale = w / (2 * Mathf.Max(Mathf.Abs(maxX), Mathf.Abs(minX)));
