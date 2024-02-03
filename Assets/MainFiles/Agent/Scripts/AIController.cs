@@ -4,6 +4,7 @@ using Gameplay;
 using Gameplay.Items;
 using Gameplay.Items.Properties;
 using UnityEngine;
+using Agent.Movement;
 
 public class AIController : MonoBehaviour
 {
