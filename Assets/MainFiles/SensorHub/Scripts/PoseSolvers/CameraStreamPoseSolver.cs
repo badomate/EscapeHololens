@@ -258,13 +258,13 @@ namespace SensorHub
 
             Vector3 adjustedVector3 = Vector3.Scale(data, new Vector3(-1, -1, -1));
 
-            if (!playerPose._landmarkArrangement.ContainsKey(identifiedLandmark))
+            if (!playerPose.landmarkArrangement.ContainsKey(identifiedLandmark))
             {
-                playerPose._landmarkArrangement.Add(identifiedLandmark, adjustedVector3);
+                playerPose.landmarkArrangement.Add(identifiedLandmark, adjustedVector3);
             }
             else
             {
-                playerPose._landmarkArrangement[identifiedLandmark] = adjustedVector3;
+                playerPose.landmarkArrangement[identifiedLandmark] = adjustedVector3;
             }
         }
 

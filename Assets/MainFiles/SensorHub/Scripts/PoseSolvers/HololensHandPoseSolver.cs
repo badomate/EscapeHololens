@@ -6,6 +6,7 @@ using UnityEngine.XR;
 using System;
 using Pose = Agent.Communication.Gestures.Pose;
 using Agent.Communication;
+using Agent.Communication.Cognition;
 
 namespace SensorHub
 {
@@ -65,7 +66,7 @@ namespace SensorHub
                     ProcessHand(rightHand, false);
                 }
 
-                RecognizeGesture.playerMovementRecord[0] = new Dictionary<Pose.Landmark, Vector3>(poseDictionary);
+                GestureRecognizer.playerMovementRecord[0] = new Dictionary<Pose.Landmark, Vector3>(poseDictionary);
             }
         }
 

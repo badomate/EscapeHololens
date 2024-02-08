@@ -26,7 +26,7 @@ namespace SensorHub
 		    solversToCombine.ToList().ForEach(
 			    (s) => {
 
-				    dictionary = dictionary.Concat(s.GetPose()._landmarkArrangement.Where(kv => landmarksFromHL2.Contains(kv.Key))
+				    dictionary = dictionary.Concat(s.GetPose().landmarkArrangement.Where(kv => landmarksFromHL2.Contains(kv.Key))
                     .ToDictionary(kv => kv.Key, kv => kv.Value)).ToDictionary(kv => kv.Key, kv => kv.Value);
 			    });
 		    combinedPlayerPose = new Pose(dictionary);

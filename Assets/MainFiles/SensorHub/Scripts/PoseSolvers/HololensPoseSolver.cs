@@ -98,7 +98,7 @@ namespace SensorHub
                 // Convert the received string of data to the format we are using
                 //position = ParseData(dataReceived);
                 //CustomDebug.LogAlex("NEW PARSED POSITION = " + string.Join(", ", position));
-                hololensPlayerPose = Pose.GetPoseFromString(dataReceived, _poseRegex);
+                hololensPlayerPose = Pose.formatter.StringToPose(dataReceived);
                 nwStream.Write(buffer, 0, bytesRead);
             }
             else
@@ -110,7 +110,7 @@ namespace SensorHub
         // Use-case specific function, need to re-write this to interpret whatever data is being sent
         public static Vector3[] ParseData(string dataString)
         {
-            Vector3[] parsedData = Pose.GetPoseVectorFromString(dataString, _poseRegex);
+            Vector3[] parsedData = Pose.formatter.StringToVectorArray(dataString);
             CustomDebug.LogAlex("ParsedData: " + string.Join(", ", parsedData));
             return parsedData;
         }
@@ -120,7 +120,7 @@ namespace SensorHub
             ThreadStart ts = new ThreadStart(GetData);
             thread = new Thread(ts);
             thread.Start();
-            position = new Vector3[Pose.LandmarkIds.Count];
+            position = new Vector3[Pose.formatter.LandmarkIndexRegistry.Count];
         }
 
         public override void Process()

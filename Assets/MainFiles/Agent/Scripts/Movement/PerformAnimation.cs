@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Agent.Communication;
+using Agent.Communication.Cognition;
 
 namespace Agent.Movement
 {
     public class PerformAnimation : MonoBehaviour
     {
-        RecognizeGesture recognizer;
+        GestureRecognizer recognizer;
         Animator animator;
         public bool performStandardAnimations = true;
 
@@ -15,7 +13,7 @@ namespace Agent.Movement
         // Start is called before the first frame update
         void Start()
         {
-            RecognizeGesture.RecognitionEvent += handleRecognitionEvent;
+            GestureRecognizer.RecognitionEvent += handleRecognitionEvent;
             animator = GetComponent<Animator>();
         }
 
@@ -89,58 +87,58 @@ namespace Agent.Movement
             if (Input.GetKey("1")) //this usually causes the event to fire multiple times, but that's fine, we want animations to play while the gesture is held
             {
                 pressing = true;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.GO_FORWARD);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.GO_FORWARD);
             }
             else if (Input.GetKey("2"))
             {
                 pressing = true;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.GO_BACKWARD);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.GO_BACKWARD);
             }
             else if (Input.GetKey("3"))
             {
                 pressing = true;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.GO_RIGHT);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.GO_RIGHT);
             }
             else if (Input.GetKey("4"))
             {
                 pressing = true;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.GO_LEFT);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.GO_LEFT);
             }
             else if (Input.GetKeyDown("5"))
             {
                 pressing = true;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.TURN_LEFT);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.TURN_LEFT);
             }
             else if (Input.GetKeyDown("6"))
             {
                 pressing = true;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.TURN_RIGHT);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.TURN_RIGHT);
             }
             else if (Input.GetKeyDown("7"))
             {
                 pressing = true;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.YES);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.YES);
             }
             else if (Input.GetKeyDown("8"))
             {
                 pressing = true;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.RED);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.RED);
             }
             else if (Input.GetKeyDown("9"))
             {
                 pressing = true;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.AMBIGUOUS);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.AMBIGUOUS);
             }
             else if(pressing)
             {
                 pressing = false;
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.UNRECOGNIZED);
+                GestureRecognizer.RecognitionEvent.Invoke(Actions.UNRECOGNIZED);
             }
         }
 
         private void OnDisable()
         {
-            RecognizeGesture.RecognitionEvent -= handleRecognitionEvent;
+            GestureRecognizer.RecognitionEvent -= handleRecognitionEvent;
         }
     }
 }

@@ -1,9 +1,6 @@
+using Agent.Communication.PoseFormatting;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using AuxiliarContent;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Agent.Communication.Gestures
@@ -77,48 +74,50 @@ namespace Agent.Communication.Gestures
 
             LEFT_HIP,
             RIGHT_HIP,
-
-
         }
 
-        private const float DEFAULT_VARIANCE = 3;
+        [SerializeField]
+        public static PoseFormatter formatter = new HololensStreamPoseFormatter();
 
-        public static List<Landmark> LandmarkIds = new List<Landmark>() {
-            Landmark.LEFT_WRIST,
-            Landmark.RIGHT_WRIST
-        };
+        public static Vector3 IRRELEVANT_POSITION { get { return PoseFormatter.IRRELEVANT_POSITION; } }
+
+        public static int MaxLandmarks {get { return formatter.LandmarkIndexRegistry.Count; } }
+        public int NumLandmarks { get { return landmarkArrangement.Count; } }
+
+        private const float DEFAULT_VARIANCE = 3;
 
         /// <summary> 
         /// Match between a landmark and its position on the pose, relative to the player's location.
         /// Not all landmarks are relevant for a given pose. 
         /// </summary>
-        public Dictionary<Landmark, Vector3> _landmarkArrangement;
-
-        private static Vector3 DefaultLandmarkPosition = Vector3.zero;
+        public Dictionary<Landmark, Vector3> landmarkArrangement;
 
         public Pose() {
-            _landmarkArrangement = new Dictionary<Landmark, Vector3>();
+            landmarkArrangement = new Dictionary<Landmark, Vector3>();
         }
 
         public Pose(Dictionary<Landmark, Vector3> arranjement) {
-            _landmarkArrangement = arranjement;
+            landmarkArrangement = arranjement;
         }
 
+        public static Landmark GetLandmarkFromIndex(int index) {
+            return formatter.LandmarkIndexRegistry.GetValue(index);
+        }
+
+        public static int GetIndexFromLandmark(Landmark landmark)
+        {
+            return formatter.LandmarkIndexRegistry.GetValue(landmark);
+        }
+
+        /// <summary> Variance between the landmark positions of two poses. </summary>
         public float MatchVariance(Pose otherPose) {
             float matchVarianceSquared = 0f;
-            foreach(KeyValuePair<Landmark, Vector3> landmarkPos in _landmarkArrangement) {
-                /*
-                Vector3 refArranjement = landmarkPos.Value;
-                Vector3 otherArranjement = otherPose.landmarkArrangement[landmarkPos.Key]; 
-                Debug.Log("LM: landmarkPos.Key" + ". Ref ": + refArranjement + ". Other: " + otherArranjement + ".");
-                */
-
-                float landmarkVarianceSquared =  otherPose._landmarkArrangement.ContainsKey(landmarkPos.Key)?
-                GetLandmarkVarianceSquared(
-                    landmarkPos.Value,
-                    otherPose._landmarkArrangement[landmarkPos.Key]
-                ) : DEFAULT_VARIANCE;     
-                // matchVarianceSquared += Mathf.Pow(landmarkVariance, 2); // sqrt(a)**2 = a
+            foreach(KeyValuePair<Landmark, Vector3> landmarkPosition in landmarkArrangement) {
+                float landmarkVarianceSquared =  otherPose.landmarkArrangement.ContainsKey(landmarkPosition.Key)?
+                    GetLandmarkVarianceSquared(
+                        landmarkPosition.Value, // Landmark position in this pose
+                        otherPose.landmarkArrangement[landmarkPosition.Key] // Landmark position in the other pose
+                    ) : DEFAULT_VARIANCE;     
                 matchVarianceSquared += landmarkVarianceSquared;
             }
 
@@ -147,130 +146,13 @@ namespace Agent.Communication.Gestures
             return varianceSquared;
         }
 
-        /// <summary> Format: "LM0 Position=[lm00Pos_x, lm00Pos_y,  lm00Pos_z]. LM1 Position=[lm01Pos_x, lm01Pos_y,  lm01Pos_z]" </summary>
-        public string ToString(bool allLandmarks = false)
-        {
-            StringBuilder poseStringBuilder = new StringBuilder();
-
-            for (int i = 0; i < LandmarkIds.Count; i++) {
-                Landmark landmark = LandmarkIds[i];
-                bool isLandmarkRelevant = _landmarkArrangement.
-                                                        TryGetValue(landmark, out Vector3 landmarkPos);
-                if (!isLandmarkRelevant)
-                    landmarkPos = DefaultLandmarkPosition;
-
-                if (allLandmarks) {
-                    string landmarkPosString = 
-                        $" {landmark}: Position=[{landmarkPos[0]}, {landmarkPos[1]},  {landmarkPos[2]}].";
-                    poseStringBuilder.Append(landmarkPosString);
-                }
-            }
-
-            string poseString = poseStringBuilder.ToString();
-            return poseString;
-        }
-
-        /// <summary> Format: " LM0 Position=[ lm00Pos_x, lm00Pos_y,  lm00Pos_z]. LM1 Position=[ lm01Pos_x, lm01Pos_y,  lm01Pos_z]." </summary>
-        public static Pose GetPoseFromString(string poseString, Regex poseRegex)
-        {
-            Pose pose = new Pose();
-
-            MatchCollection landmarkPositions = poseRegex.Matches(poseString);
-            int nrLandmarksRegistered = 0;
-            CustomDebug.LogAlex("Pose str received:" + poseString);
-
-            foreach (Match landmarkPosition in landmarkPositions.Cast<Match>())
-            {
-                GroupCollection landmarkCoordinate = landmarkPosition.Groups;
-                Landmark currentLandmarkId = LandmarkIds[nrLandmarksRegistered];
-                pose._landmarkArrangement[currentLandmarkId] = 
-                    new Vector3(
-                        float.Parse(landmarkCoordinate["x"].Value),
-                        float.Parse(landmarkCoordinate["y"].Value),
-                        float.Parse(landmarkCoordinate["z"].Value))
-                    ;
-
-                CustomDebug.LogAlex("Pose[" + currentLandmarkId + "]: " + pose._landmarkArrangement[currentLandmarkId]);
-                nrLandmarksRegistered++;
-            }
-
-            return pose;
-        }
-
-        public static Pose GetPoseFromArray(Vector3[] poseArray)
-        {
-            Pose pose = new Pose();
-
-            int totalLandmarks = LandmarkIds.Count;
-
-            for (int i = 0; i < totalLandmarks; i++)
-            {
-                Landmark landmark = LandmarkIds[i];
-                Vector3 landmarkPosition = poseArray[i];
-                bool isLandmarkRelevant = !landmarkPosition.Equals(Vector3.zero);
-
-                if (isLandmarkRelevant)
-                    pose._landmarkArrangement.Add(landmark, landmarkPosition);
-            }
-            return pose;
-        }
-
-        /// <summary> Format: " LM0 Position=[ lm00Pos_x, lm00Pos_y,  lm00Pos_z]. LM1 Position=[ lm01Pos_x, lm01Pos_y,  lm01Pos_z]." </summary>
-        public static Vector3[] GetPoseVectorFromString(string poseString, Regex poseRegex)
-        {
-            MatchCollection landmarkPositions = poseRegex.Matches(poseString);
-            int nrLandmarksRegistered = 0;
-
-            int totalLandmarks = landmarkPositions.Count;
-            CustomDebug.LogAlex("Received pose. #LM=" + totalLandmarks);
-
-            Vector3[] poseVector = new Vector3[totalLandmarks];
-
-            foreach (Match landmarkPosition in landmarkPositions.Cast<Match>())
-            {
-                GroupCollection landmarkCoordinate = landmarkPosition.Groups;
-                Landmark currentLandmarkId = LandmarkIds[nrLandmarksRegistered];
-                Vector3 landmarkVector = new Vector3(
-                        float.Parse(landmarkCoordinate["x"].Value),
-                        float.Parse(landmarkCoordinate["y"].Value),
-                        float.Parse(landmarkCoordinate["z"].Value))
-                    ;
-
-                Debug.Log("Pose[" + currentLandmarkId + "]: " + landmarkVector);
-            
-                poseVector[nrLandmarksRegistered] = landmarkVector;
-                nrLandmarksRegistered++;
-            }
-
-            return poseVector;
-        }
-
-
-        public static Vector3[] GetPoseVectors(Pose pose)
-        {
-            int totalLandmarks = LandmarkIds.Count;
-            Vector3[] poseVectors = new Vector3[totalLandmarks];
-
-            for (int i = 0; i < totalLandmarks; i++)
-            {
-                Landmark landmark = LandmarkIds[i];
-                bool isLandmarkRelevant = pose._landmarkArrangement.
-                                                        TryGetValue(landmark, out Vector3 landmarkPosition);
-                if (!isLandmarkRelevant)
-                    landmarkPosition = DefaultLandmarkPosition;
-
-                poseVectors[i] = landmarkPosition;
-            }
-            return poseVectors;
-        }
-
         public void RotatePose(Quaternion rotation)
         {
-            foreach (var landmark in _landmarkArrangement.Keys.ToList())
+            foreach (var landmark in landmarkArrangement.Keys.ToList())
             {
-                Vector3 originalPosition = _landmarkArrangement[landmark];
+                Vector3 originalPosition = landmarkArrangement[landmark];
                 Vector3 rotatedPosition = rotation * originalPosition;
-                _landmarkArrangement[landmark] = rotatedPosition;
+                landmarkArrangement[landmark] = rotatedPosition;
             }
         }
     }
