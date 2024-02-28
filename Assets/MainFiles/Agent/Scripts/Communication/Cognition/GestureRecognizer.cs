@@ -9,7 +9,7 @@ using Pose = Agent.Communication.Gestures.Pose;
 
 namespace Agent.Communication.Cognition
 {
-    public enum Actions
+    public enum GestureRecognized
     {
         GO_LEFT,
         GO_RIGHT,
@@ -38,7 +38,7 @@ namespace Agent.Communication.Cognition
 
     public class GestureRecognizer : MonoBehaviour
     {
-        public int recordingLength = 2; // how many frames do we save for comparison? should match the dictionary
+        public int recordingLength = 1; // how many frames do we save for comparison? should match the dictionary
         public int stillnessFramesRequired = 2;
 
 
@@ -51,10 +51,7 @@ namespace Agent.Communication.Cognition
         public float stillnessThreshold = 0.1f; // used to "lock in" a pose
 
         public static UnityEvent StillnessEvent = new UnityEvent();
-        // public UnityEvent MimicEvent = new UnityEvent(); 
-
-        public delegate void RecognitionEventDel(Actions action);
-        public static RecognitionEventDel RecognitionEvent;
+        public static UnityEvent<GestureRecognized> RecognitionEvent = new UnityEvent<GestureRecognized>();
 
         // Start is called before the first frame update
 
@@ -206,23 +203,23 @@ namespace Agent.Communication.Cognition
 
             if (isYes)
             {
-                GestureRecognizer.RecognitionEvent.Invoke(Actions.VICTORY);
+                RecognitionEvent.Invoke(GestureRecognized.VICTORY);
                 Debug.Log("YES detected");
             }
             else if (isRed)
             {
-                GestureRecognizer.RecognitionEvent.Invoke(Actions.GO_LEFT);
+                RecognitionEvent.Invoke(GestureRecognized.GO_LEFT);
                 Debug.Log("RED detected");
             }
             else if (isCircle)
             {
-                GestureRecognizer.RecognitionEvent.Invoke(Actions.GO_RIGHT);
+                RecognitionEvent.Invoke(GestureRecognized.GO_RIGHT);
                 Debug.Log("CIRCLE detected");
             }
             else if (isSquare)
             {
-                GestureRecognizer.RecognitionEvent.Invoke(Actions.TURN_LEFT);
-                Debug.Log("CIRCLE detected");
+                RecognitionEvent.Invoke(GestureRecognized.TURN_LEFT);
+                Debug.Log("SQUARE detected");
             }
             /*
             if (isBlue)
@@ -312,7 +309,7 @@ namespace Agent.Communication.Cognition
                 }
                 else
                 {
-                    GestureRecognizer.RecognitionEvent.Invoke(Actions.UNRECOGNIZED);
+                    RecognitionEvent.Invoke(GestureRecognized.UNRECOGNIZED);
                 }
                 timeSinceLastFrame = 0f; // Reset the time counter
             }
@@ -362,16 +359,10 @@ namespace Agent.Communication.Cognition
             return recording && recordingProgress == recordingLength && goalGesture.GestureMatches(gestureToCompare);
         }
 
-        //We save the gesture's samples received through the mediapipe stream as a matrix and keep comparing it to the goal until they match. Every row is a sample (at 30hz)
-        //If the matrix is full, we will throw away the oldest sample so we can keep matrix size the same
-        //TODO: we may be taking more samples than we are receiving from mediapipe if the stream rate is low. It would be good to make sure we only call this function when the player's pose has definitely been updated.
         public void SaveGestureFrame()
         {
             if (recording)
             {
-                //Dictionary<Pose.Landmark, Vector3> landmarksCopy = new Dictionary<Pose.Landmark, Vector3>(PollHl2Hands.poseDictionary);
-
-
                 if (recordingProgress < recordingLength) //building up the matrix
                 {
                     playerMovementRecord[recordingProgress] = new Dictionary<Pose.Landmark, Vector3>(HololensHandPoseSolver.poseDictionary);
