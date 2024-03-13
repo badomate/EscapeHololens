@@ -66,7 +66,7 @@ namespace SensorHub
                     ProcessHand(rightHand, false);
                 }
 
-                GestureRecognizer.playerMovementRecord[0] = new Dictionary<Pose.Landmark, Vector3>(poseDictionary);
+                RecognitionManager.playerMovementRecord[0] = new Dictionary<Pose.Landmark, Vector3>(poseDictionary);
             }
         }
 

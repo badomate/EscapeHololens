@@ -1,72 +1,57 @@
+﻿using Agent.Communication.Cognition;
+using SensorHub;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Linq;
-using System;
-using Agent.Communication.Gestures;
-using SensorHub;
 using Pose = Agent.Communication.Gestures.Pose;
 
 namespace Agent.Communication.Cognition
 {
-    public enum Actions
+    public class GestureRecognizer : MonoBehaviour, IGestureRecognizer
     {
-        GO_LEFT,
-        GO_RIGHT,
-        GO_FORWARD,
-        GO_BACKWARD,
+        private Dictionary<Pose.Landmark, Vector3>[] movementRecord;
 
-        TURN_LEFT,
-        TURN_RIGHT,
+        [SerializeField]
+        private GameObject referenceCamera;
 
-        CIRCLE,
-        SQUARE,
-
-        RED,
-        BLUE,
-
-        NEW_WORD,
-        ATTENTION,
-        YES,
-        NO,
-
-        VICTORY,
-
-        UNRECOGNIZED,
-        AMBIGUOUS
-    }
-
-    public class GestureRecognizer : MonoBehaviour
-    {
-        public int recordingLength = 2; // how many frames do we save for comparison? should match the dictionary
-        public int stillnessFramesRequired = 2;
-
-
-        public bool recording = false;
-        public bool stillnessCheck = false;
-
-        public static Dictionary<Pose.Landmark, Vector3>[] playerMovementRecord;
-        private int recordingProgress = 0; // how many samples of the currently playing gesture have we saved so far
-        public float matchThreshold = 0.01f; // 0 would mean an absolute perfect match across all samples
-        public float stillnessThreshold = 0.1f; // used to "lock in" a pose
-
-        public static UnityEvent StillnessEvent = new UnityEvent();
-        // public UnityEvent MimicEvent = new UnityEvent(); 
-
-        public delegate void RecognitionEventDel(Actions action);
-        public static RecognitionEventDel RecognitionEvent;
-
-        // Start is called before the first frame update
-
-        public GameObject playerCamera;
-        void Start()
+        public enum ID
         {
-            playerMovementRecord = new Dictionary<Pose.Landmark, Vector3>[recordingLength];
-            StillnessEvent.AddListener(HandleStillness);
+            NONE, 
+            GO_LEFT,
+            GO_RIGHT,
+            GO_FORWARD,
+            GO_BACKWARD,
+
+            TURN_LEFT,
+            TURN_RIGHT,
+
+            CIRCLE,
+            SQUARE,
+
+            RED,
+            BLUE,
+
+            NEW_WORD,
+            ATTENTION,
+            YES,
+            NO,
+
+            VICTORY,
+
+            UNRECOGNIZED,
+            AMBIGUOUS
         }
 
-        private void HandleStillness()
+
+        public UnityEvent<ID> OnGestureRecognized = new UnityEvent<ID>();
+
+        public void Recognize(Dictionary<Pose.Landmark, Vector3>[] externalMovementRecord = null)
         {
+            movementRecord = externalMovementRecord != null ?
+                externalMovementRecord : new Dictionary<Pose.Landmark, Vector3>[1];
+
             //Watch out: Depending on mediapipe configuration, left and right hand indicators may be flipped 
             bool isLeftHandStraight = IsJointStraight(Pose.Landmark.LEFT_SHOULDER, Pose.Landmark.LEFT_ELBOW, Pose.Landmark.LEFT_WRIST, 45f);
             bool isRightHandStraight = IsJointStraight(Pose.Landmark.RIGHT_SHOULDER, Pose.Landmark.RIGHT_ELBOW, Pose.Landmark.RIGHT_WRIST, 45f);
@@ -74,8 +59,6 @@ namespace Agent.Communication.Cognition
             bool isLeftHandLeveled = IsJointLeveled(Pose.Landmark.LEFT_SHOULDER, Pose.Landmark.LEFT_WRIST, 0.3f);
             bool isRightHandLeveled = IsJointLeveled(Pose.Landmark.RIGHT_SHOULDER, Pose.Landmark.RIGHT_WRIST, 0.3f);
 
-            //Debug.Log(" LEFT_THUMB." + fingerDown(Pose.Landmark.LEFT_THUMB) + "LEFT_INDEX:" + fingerDown(Pose.Landmark.LEFT_INDEX) + "LEFT_MIDDLE:" + fingerDown(Pose.Landmark.LEFT_MIDDLE) + "LEFT_RING: " + fingerDown(Pose.Landmark.LEFT_RING) + "LEFT_PINKY: " + fingerDown(Pose.Landmark.LEFT_PINKY));
-            //Debug.Log(PollHl2Hands.leftPalmRot.eulerAngles + ";" + PollHl2Hands.rightPalmRot.eulerAngles);
 
             //********************************** Shapes **********************************
             bool isCircle = IsFingerDown(Pose.Landmark.LEFT_THUMB) &&
@@ -94,7 +77,7 @@ namespace Agent.Communication.Cognition
             //********************************** Colors **********************************
 
             //"namaste"
-            bool isBlue = (IsFingerDown(Pose.Landmark.RIGHT_INDEX) && 
+            bool isBlue = (IsFingerDown(Pose.Landmark.RIGHT_INDEX) &&
                               IsFingerDown(Pose.Landmark.RIGHT_MIDDLE) &&
                               IsFingerDown(Pose.Landmark.RIGHT_RING) &&
                               IsFingerDown(Pose.Landmark.RIGHT_PINKY) &&
@@ -206,63 +189,63 @@ namespace Agent.Communication.Cognition
 
             if (isYes)
             {
-                GestureRecognizer.RecognitionEvent.Invoke(Actions.VICTORY);
+                OnGestureRecognized.Invoke(ID.VICTORY);
                 Debug.Log("YES detected");
             }
             else if (isRed)
             {
-                GestureRecognizer.RecognitionEvent.Invoke(Actions.GO_LEFT);
+                OnGestureRecognized.Invoke(ID.GO_LEFT);
                 Debug.Log("RED detected");
             }
             else if (isCircle)
             {
-                GestureRecognizer.RecognitionEvent.Invoke(Actions.GO_RIGHT);
+                OnGestureRecognized.Invoke(ID.GO_RIGHT);
                 Debug.Log("CIRCLE detected");
             }
             else if (isSquare)
             {
-                GestureRecognizer.RecognitionEvent.Invoke(Actions.TURN_LEFT);
+                OnGestureRecognized.Invoke(ID.TURN_LEFT);
                 Debug.Log("CIRCLE detected");
             }
             /*
             if (isBlue)
             {
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.VICTORY);
+                RecognizeGesture.OnGestureRecognized.Invoke(ID.VICTORY);
                 Debug.Log("BLUE detected");
             }
             else if (isRed)
             {
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.SUPERMAN);
+                RecognizeGesture.OnGestureRecognized.Invoke(ID.SUPERMAN);
                 Debug.Log("RED detected");
             }
             else if (isHello)
             {
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.SUPERMAN);
+                RecognizeGesture.OnGestureRecognized.Invoke(ID.SUPERMAN);
                 Debug.Log("HELLO detected");
             }
             else if (isYes)
             {
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.TURN_LEFT);
+                RecognizeGesture.OnGestureRecognized.Invoke(ID.TURN_LEFT);
                 Debug.Log("YES detected");
             }
             else if (isNo)
             {
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.TURN_RIGHT);
+                RecognizeGesture.OnGestureRecognized.Invoke(ID.TURN_RIGHT);
                 Debug.Log("NO detected");
             }
             else if (isDirectionForward)
             {
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.GO_FORWARD);
+                RecognizeGesture.OnGestureRecognized.Invoke(ID.GO_FORWARD);
                 Debug.Log("FORWARD detected");
             }
             else if (isDirectionLeft)
             {
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.GO_LEFT);
+                RecognizeGesture.OnGestureRecognized.Invoke(ID.GO_LEFT);
                 Debug.Log("LEFT detected");
             }
             else if (isDirectionRight)
             {
-                RecognizeGesture.RecognitionEvent.Invoke(Actions.GO_RIGHT);
+                RecognizeGesture.OnGestureRecognized.Invoke(ID.GO_RIGHT);
                 Debug.Log("RIGHT detected");
             }*/
 
@@ -273,11 +256,11 @@ namespace Agent.Communication.Cognition
             Quaternion palmRotation = leftHand ? HololensHandPoseSolver.leftPalmRot : HololensHandPoseSolver.rightPalmRot;
 
             // Step 1: Get the inverse of the camera's rotation
-            Quaternion inverseCameraRotation = Quaternion.Inverse(playerCamera.transform.rotation);
+            Quaternion inverseCameraRotation = Quaternion.Inverse(referenceCamera.transform.rotation);
 
             // Step 2: Apply this inverse to the palm rotation
             Quaternion palmLocalToCamera = inverseCameraRotation * palmRotation;
-        
+
             if (leftHand)
             {
                 //Debug.Log(palmLocalToCamera.eulerAngles + "; Player camera: " + playerCamera.transform.eulerAngles);
@@ -289,115 +272,15 @@ namespace Agent.Communication.Cognition
             return angleDifference <= threshold;
         }
 
-        private readonly float frameInterval = 1f / 30f; // 30hz
-        private float timeSinceLastFrame = 0f;
-        // Update is called once per frame
-        void Update()
-        {
-
-            if (!stillnessCheck)
-            {
-                StillnessEvent.Invoke();
-                return;
-            }
-
-            timeSinceLastFrame += Time.deltaTime;
-            // Check if the desired time interval has passed (30fps)
-            if (timeSinceLastFrame >= frameInterval && recording && stillnessCheck)
-            {
-                SaveGestureFrame();
-                if (DetectStillness()) //TO-DO: reimplement the stillness check, it is likely still useful
-                {
-                    StillnessEvent.Invoke();
-                }
-                else
-                {
-                    GestureRecognizer.RecognitionEvent.Invoke(Actions.UNRECOGNIZED);
-                }
-                timeSinceLastFrame = 0f; // Reset the time counter
-            }
-        }
-
-        public bool DetectStillness()
-        {
-            // Check if there are enough rows to check for stillness
-            if (recordingLength < stillnessFramesRequired)
-            {
-                Debug.LogWarning("Stillness frames required are greater than the set total recording memory!");
-                return false;
-            }
-
-            // the difference in each element of the last stillnessFramesRequired rows must be under threshold
-            for (int recordingIndex = recordingLength - stillnessFramesRequired; recordingIndex < recordingLength - 1; recordingIndex++)
-            {
-                if (playerMovementRecord[recordingIndex] == null || playerMovementRecord[recordingIndex + 1] == null)
-                {
-                    return false; //recording is incomplete
-                }
-
-                foreach (var landmark in playerMovementRecord[recordingIndex].Keys.ToList()) //adjust hand origin
-                {
-                    if (playerMovementRecord[recordingIndex].ContainsKey(landmark) && playerMovementRecord[recordingIndex+1].ContainsKey(landmark) && Vector3.Distance(playerMovementRecord[recordingIndex][landmark], playerMovementRecord[recordingIndex + 1][landmark]) > stillnessThreshold)
-                    {
-                        return false; // Difference exceeded the threshold
-                    }
-
-                }
-            }
-            if (StillnessEvent != null)
-            {
-                return true;
-            }
-            else
-            {
-                StillnessEvent = new UnityEvent();
-                return true;
-            }
-
-        }
-
-        public bool GestureCompleted(Gesture goalGesture, Vector3[,] gestureToCompareMatrix)
-        {
-            Gesture gestureToCompare = Gesture.formatter.PositionsMatrixToGesture(gestureToCompareMatrix);
-            return recording && recordingProgress == recordingLength && goalGesture.GestureMatches(gestureToCompare);
-        }
-
-        //We save the gesture's samples received through the mediapipe stream as a matrix and keep comparing it to the goal until they match. Every row is a sample (at 30hz)
-        //If the matrix is full, we will throw away the oldest sample so we can keep matrix size the same
-        //TODO: we may be taking more samples than we are receiving from mediapipe if the stream rate is low. It would be good to make sure we only call this function when the player's pose has definitely been updated.
-        public void SaveGestureFrame()
-        {
-            if (recording)
-            {
-                //Dictionary<Pose.Landmark, Vector3> landmarksCopy = new Dictionary<Pose.Landmark, Vector3>(PollHl2Hands.poseDictionary);
-
-
-                if (recordingProgress < recordingLength) //building up the matrix
-                {
-                    playerMovementRecord[recordingProgress] = new Dictionary<Pose.Landmark, Vector3>(HololensHandPoseSolver.poseDictionary);
-                    recordingProgress++;
-                }
-                else //updating the matrix
-                {
-                    for (int i = 0; i < playerMovementRecord.GetLength(0) - 1; i++)
-                    {
-                        playerMovementRecord[i] = playerMovementRecord[i + 1];
-                    }
-
-                    playerMovementRecord[playerMovementRecord.GetLength(0) - 1] = new Dictionary<Pose.Landmark, Vector3>(HololensHandPoseSolver.poseDictionary);
-
-                }
-            }
-        }
 
         //TODO: this function parses a lot of enums as strings and vice-versa, there might be a better apporoach, perhaps by pre-defining the hierarchy of which landmarks belong to which finger or hand
         private bool IsFingerDown(Pose.Landmark fingerTip)
         {
-            if (playerMovementRecord[playerMovementRecord.GetLength(0) - 1] == null)
+            if (movementRecord[movementRecord.GetLength(0) - 1] == null)
             {
                 return false;
             }
-            Dictionary<Pose.Landmark, Vector3> poseToExamine = playerMovementRecord[playerMovementRecord.GetLength(0) - 1];
+            Dictionary<Pose.Landmark, Vector3> poseToExamine = movementRecord[movementRecord.GetLength(0) - 1];
 
 
             Pose.Landmark wrist;
@@ -406,7 +289,7 @@ namespace Agent.Communication.Cognition
 
             Enum.TryParse(fingerTip.ToString().Substring(0, fingerTip.ToString().IndexOf('_') + 1) + "WRIST_ROOT", out wrist);
 
-                if (!poseToExamine.ContainsKey(fingerMiddle) || !poseToExamine.ContainsKey(wrist) || !poseToExamine.ContainsKey(fingerTip))
+            if (!poseToExamine.ContainsKey(fingerMiddle) || !poseToExamine.ContainsKey(wrist) || !poseToExamine.ContainsKey(fingerTip))
             {
                 return false;
             }
@@ -444,8 +327,8 @@ namespace Agent.Communication.Cognition
         {
             try
             {
-                Vector3 startVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][start];
-                Vector3 endVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][end];
+                Vector3 startVect = movementRecord[movementRecord.GetLength(0) - 1][start];
+                Vector3 endVect = movementRecord[movementRecord.GetLength(0) - 1][end];
 
                 Vector3 v = endVect - startVect;
 
@@ -463,8 +346,8 @@ namespace Agent.Communication.Cognition
         {
             try
             {
-                Vector3 startVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][start];
-                Vector3 endVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][end];
+                Vector3 startVect = movementRecord[movementRecord.GetLength(0) - 1][start];
+                Vector3 endVect = movementRecord[movementRecord.GetLength(0) - 1][end];
 
                 Vector3 v = endVect - startVect;
 
@@ -482,9 +365,9 @@ namespace Agent.Communication.Cognition
         {
             try
             {
-                Vector3 startVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][start];
-                Vector3 middleVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][middle];
-                Vector3 endVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][end];
+                Vector3 startVect = movementRecord[movementRecord.GetLength(0) - 1][start];
+                Vector3 middleVect = movementRecord[movementRecord.GetLength(0) - 1][middle];
+                Vector3 endVect = movementRecord[movementRecord.GetLength(0) - 1][end];
 
                 Vector3 V1 = middleVect - startVect;
                 Vector3 V2 = endVect - middleVect;
@@ -508,9 +391,9 @@ namespace Agent.Communication.Cognition
         {
             try
             {
-                Vector3 startVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][start];
-                Vector3 middleVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][middle];
-                Vector3 endVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][end];
+                Vector3 startVect = movementRecord[movementRecord.GetLength(0) - 1][start];
+                Vector3 middleVect = movementRecord[movementRecord.GetLength(0) - 1][middle];
+                Vector3 endVect = movementRecord[movementRecord.GetLength(0) - 1][end];
 
                 Vector3 V1 = middleVect - startVect;
                 Vector3 V2 = endVect - middleVect;
@@ -535,8 +418,8 @@ namespace Agent.Communication.Cognition
         {
             try
             {
-                Vector3 startVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][Pose.Landmark.LEFT_FOOT];
-                Vector3 endVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][Pose.Landmark.RIGHT_FOOT];
+                Vector3 startVect = movementRecord[movementRecord.GetLength(0) - 1][Pose.Landmark.LEFT_FOOT];
+                Vector3 endVect = movementRecord[movementRecord.GetLength(0) - 1][Pose.Landmark.RIGHT_FOOT];
 
                 Vector3 v = endVect - startVect;
 
@@ -554,8 +437,8 @@ namespace Agent.Communication.Cognition
         {
             try
             {
-                Vector3 startVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][Pose.Landmark.LEFT_FOOT];
-                Vector3 endVect = playerMovementRecord[playerMovementRecord.GetLength(0) - 1][Pose.Landmark.RIGHT_FOOT];
+                Vector3 startVect = movementRecord[movementRecord.GetLength(0) - 1][Pose.Landmark.LEFT_FOOT];
+                Vector3 endVect = movementRecord[movementRecord.GetLength(0) - 1][Pose.Landmark.RIGHT_FOOT];
 
                 Vector3 v = startVect - endVect;
 
