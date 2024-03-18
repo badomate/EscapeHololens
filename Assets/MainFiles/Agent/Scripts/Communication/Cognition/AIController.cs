@@ -54,9 +54,10 @@ namespace Agent.Communication.Cognition
 
         void IndicateLevel(TwisterLevel level) {
             iKController.SetIdle();
-            StartCoroutine(nameof(GestureProperties), level.goal);
+            //StartCoroutine(nameof(GestureProperties), level.goal);
         }
-
+        
+        /*
         IEnumerator GestureProperties(TwisterButton tb){
             animator.Play(tb.GetProperty<ShapeProperty>().ShapeTraitsSO.gesture.name);
             yield return new WaitForSeconds(4);
@@ -64,6 +65,7 @@ namespace Agent.Communication.Cognition
             yield return new WaitForSeconds(4);
             animator.Play("Armature|Idle");
         }
+        */
 
         public void InterpretGesture(GestureRecognizer.ID gestureID)
         {
@@ -91,15 +93,6 @@ namespace Agent.Communication.Cognition
             }
         }
 
-        void TrySolve(Property property) {
-            foreach (Item item in FindObjectsByType<Item>(FindObjectsSortMode.None))
-            {
-                if(item.GetProperty(property.Type) == property) {
-                    iKController.SetTarget(item.transform);
-                    return;
-                }
-            }
-        }
 
         [ContextMenu("PlayRed")]
         void DebugPlay() {
