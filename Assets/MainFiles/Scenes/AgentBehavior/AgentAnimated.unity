@@ -684,6 +684,10 @@ PrefabInstance:
       value: Mixamo Humanoid
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 49c47ba1e8248d84f8f61d05bd74e965, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 49c47ba1e8248d84f8f61d05bd74e965, type: 3}
+    - target: {fileID: 5866666021909216657, guid: 49c47ba1e8248d84f8f61d05bd74e965, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 63369918ede5f8b42984522679e277a4, type: 2}

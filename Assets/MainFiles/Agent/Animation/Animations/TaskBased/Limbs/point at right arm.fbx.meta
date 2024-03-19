@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8adbed812810d56488df9eb6169a1648
+guid: 509fca1ebbd6e8d4bba993739e36c0ae
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -17,14 +17,32 @@ ModelImporter:
     removeConstantScaleCurves: 1
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'mixamorig:LeftUpLeg'
+      : position error = 108.854355 mm\n\t'mixamorig:LeftLeg' : position error =
+      391.289154 mm\n\t'mixamorig:LeftFoot' : position error = 405.741943 mm\n\t'mixamorig:LeftToeBase'
+      : position error = 151.521255 mm\n\t'mixamorig:RightUpLeg' : position error
+      = 108.854347 mm\n\t'mixamorig:RightLeg' : position error = 391.289398 mm\n\t'mixamorig:RightFoot'
+      : position error = 405.742157 mm\n\t'mixamorig:RightToeBase' : position error
+      = 151.521240 mm\n"
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Armature|Action' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'mixamorig:LeftShoulder' has translation
+      animation that will be discarded.\n\t'mixamorig:LeftHandIndex1' has translation
+      animation that will be discarded.\n\t'mixamorig:LeftHandMiddle1' has translation
+      animation that will be discarded.\n\t'mixamorig:LeftHandMiddle3' has translation
+      animation that will be discarded.\n\t'mixamorig:LeftHandRing1' has translation
+      animation that will be discarded.\n\t'mixamorig:LeftHandPinky1' has translation
+      animation that will be discarded.\n\t'mixamorig:RightShoulder' has translation
+      animation that will be discarded.\n\t'mixamorig:RightHandMiddle1' has translation
+      animation that will be discarded.\n\t'mixamorig:RightHandPinky1' has translation
+      animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -33,7 +51,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: red
+      name: point_right_arm
       takeName: Armature|Action
       internalID: 885944232402757753
       firstFrame: 0
@@ -124,7 +142,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -648,8 +666,7 @@ ModelImporter:
     - name: mixamorig:LeftHandThumb3
       parentName: mixamorig:LeftHandThumb2
       position: {x: 4.4703483e-10, y: 0.00043821294, z: -0.000000002933666}
-      rotation: {x: 0.00000034272614, y: -0.0000000037255874, z: -0.0000001061706,
-        w: 1}
+      rotation: {x: 0.00000034272614, y: -0.0000000037255874, z: -0.0000001061706, w: 1}
       scale: {x: 1.0000005, y: 1.0000005, z: 1.0000004}
     - name: mixamorig:LeftHandThumb4
       parentName: mixamorig:LeftHandThumb3
@@ -689,20 +706,17 @@ ModelImporter:
     - name: mixamorig:LeftHandMiddle1
       parentName: mixamorig:LeftHand
       position: {x: 0.0000000011362136, y: 0.001277555, z: -8.9639796e-10}
-      rotation: {x: -0.00000056158746, y: 0.00000006379558, z: -0.00000009561114,
-        w: 1}
+      rotation: {x: -0.00000056158746, y: 0.00000006379558, z: -0.00000009561114, w: 1}
       scale: {x: 1.0000002, y: 0.9999998, z: 0.9999999}
     - name: mixamorig:LeftHandMiddle2
       parentName: mixamorig:LeftHandMiddle1
       position: {x: -9.3132255e-12, y: 0.0003613955, z: -9.546056e-11}
-      rotation: {x: 0.0000013802234, y: -0.000000009429798, z: -0.000000023922965,
-        w: 1}
+      rotation: {x: 0.0000013802234, y: -0.000000009429798, z: -0.000000023922965, w: 1}
       scale: {x: 1.0000001, y: 1.0000004, z: 1.0000001}
     - name: mixamorig:LeftHandMiddle3
       parentName: mixamorig:LeftHandMiddle2
       position: {x: -0.000000002742745, y: 0.00034597522, z: 5.5879353e-11}
-      rotation: {x: -0.00000057462574, y: -0.00000008824276, z: -0.000000007767794,
-        w: 1}
+      rotation: {x: -0.00000057462574, y: -0.00000008824276, z: -0.000000007767794, w: 1}
       scale: {x: 1.0000005, y: 1.0000006, z: 1.0000006}
     - name: mixamorig:LeftHandMiddle4
       parentName: mixamorig:LeftHandMiddle3
@@ -777,8 +791,7 @@ ModelImporter:
     - name: Ctrl_Thumb3_Left
       parentName: Ctrl_Thumb2_Left
       position: {x: 4.4703483e-10, y: 0.00043821294, z: -0.000000002933666}
-      rotation: {x: 0.00000034272614, y: -0.0000000037255874, z: -0.0000001061706,
-        w: 1}
+      rotation: {x: 0.00000034272614, y: -0.0000000037255874, z: -0.0000001061706, w: 1}
       scale: {x: 1.0000005, y: 1.0000005, z: 1.0000004}
     - name: Ctrl_Thumb3_Left_end
       parentName: Ctrl_Thumb3_Left
@@ -808,20 +821,17 @@ ModelImporter:
     - name: Ctrl_Middle1_Left
       parentName: mixamorig:LeftHand
       position: {x: 0.0000000011362136, y: 0.001277555, z: -8.9639796e-10}
-      rotation: {x: -0.00000056158746, y: 0.00000006379558, z: -0.00000009561114,
-        w: 1}
+      rotation: {x: -0.00000056158746, y: 0.00000006379558, z: -0.00000009561114, w: 1}
       scale: {x: 1.0000002, y: 0.9999998, z: 0.9999999}
     - name: Ctrl_Middle2_Left
       parentName: Ctrl_Middle1_Left
       position: {x: 9.3132255e-12, y: 0.0003613955, z: -9.778887e-11}
-      rotation: {x: 0.0000013802234, y: -0.000000009429798, z: -0.000000023922965,
-        w: 1}
+      rotation: {x: 0.0000013802234, y: -0.000000009429798, z: -0.000000023922965, w: 1}
       scale: {x: 1.0000001, y: 1.0000004, z: 1.0000001}
     - name: Ctrl_Middle3_Left
       parentName: Ctrl_Middle2_Left
       position: {x: -0.000000002742745, y: 0.00034597522, z: 5.5879353e-11}
-      rotation: {x: -0.00000057462574, y: -0.00000008824276, z: -0.000000007767794,
-        w: 1}
+      rotation: {x: -0.00000057462574, y: -0.00000008824276, z: -0.000000007767794, w: 1}
       scale: {x: 1.0000005, y: 1.0000006, z: 1.0000006}
     - name: Ctrl_Middle3_Left_end
       parentName: Ctrl_Middle3_Left
@@ -1136,8 +1146,7 @@ ModelImporter:
     - name: mixamorig:LeftToe_End
       parentName: mixamorig:LeftToeBase
       position: {x: -1.6472768e-10, y: 0.0009999996, z: -2.9149304e-11}
-      rotation: {x: 0.000000029802322, y: -0.00000074878335, z: 0.000000085216016,
-        w: 1}
+      rotation: {x: 0.000000029802322, y: -0.00000074878335, z: 0.000000085216016, w: 1}
       scale: {x: 1.0000006, y: 1.0000007, z: 1.0000004}
     - name: mixamorig:LeftToe_End_end
       parentName: mixamorig:LeftToe_End
@@ -1167,8 +1176,7 @@ ModelImporter:
     - name: mixamorig:RightToe_End
       parentName: mixamorig:RightToeBase
       position: {x: -1.4551915e-11, y: 0.0010000004, z: -2.3283063e-11}
-      rotation: {x: -0.000000014901158, y: 0.0000009424982, z: 0.000000016298142,
-        w: 1}
+      rotation: {x: -0.000000014901158, y: 0.0000009424982, z: 0.000000016298142, w: 1}
       scale: {x: 1.000001, y: 1.0000002, z: 1.0000006}
     - name: mixamorig:RightToe_End_end
       parentName: mixamorig:RightToe_End
@@ -1488,14 +1496,12 @@ ModelImporter:
     - name: FootHeelIn_Left
       parentName: FootHeelOut_Left
       position: {x: -0.00094295753, y: -0.00002518571, z: -0.0000000016158447}
-      rotation: {x: 0.0000000011283454, y: 0.0000000018626451, z: 0.000000044689248,
-        w: 1}
+      rotation: {x: 0.0000000011283454, y: 0.0000000018626451, z: 0.000000044689248, w: 1}
       scale: {x: 0.9999998, y: 1.0000005, z: 1.0000002}
     - name: FootHeelMid_Left
       parentName: FootHeelIn_Left
       position: {x: 0.00047147833, y: 0.000012592907, z: 7.6484863e-10}
-      rotation: {x: 0.0000000010751473, y: 0.0000000055879354, z: 0.00000004375899,
-        w: 1}
+      rotation: {x: 0.0000000010751473, y: 0.0000000055879354, z: 0.00000004375899, w: 1}
       scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: ToeEnd_Left
       parentName: FootHeelMid_Left
@@ -1540,8 +1546,7 @@ ModelImporter:
     - name: Ctrl_Toe_IK_Left
       parentName: ToeEnd_Left
       position: {x: -5.3551046e-11, y: -0.0009999998, z: 6.984919e-12}
-      rotation: {x: -9.3132246e-10, y: -0.0000000074505797, z: -0.000000009400536,
-        w: 1}
+      rotation: {x: -9.3132246e-10, y: -0.0000000074505797, z: -0.000000009400536, w: 1}
       scale: {x: 1.0000008, y: 1.0000001, z: 1}
     - name: Ctrl_Toe_IK_Left_end
       parentName: Ctrl_Toe_IK_Left
@@ -1596,14 +1601,12 @@ ModelImporter:
     - name: Toe01_IK_Right
       parentName: ToeTrack_Right
       position: {x: 5.2561516e-10, y: -0.000000012502423, z: 0.0000000061822356}
-      rotation: {x: -0.000000059604638, y: -0.00000049546355, z: 0.000000013038514,
-        w: 1}
+      rotation: {x: -0.000000059604638, y: -0.00000049546355, z: 0.000000013038514, w: 1}
       scale: {x: 1.0000012, y: 1.0000001, z: 1.0000004}
     - name: Toe02_Right
       parentName: Toe01_IK_Right
       position: {x: -1.5133991e-11, y: 0.0004999999, z: 4.6566126e-11}
-      rotation: {x: 0.000000119209275, y: 0.0000010058283, z: -0.000000020954754,
-        w: 1}
+      rotation: {x: 0.000000119209275, y: 0.0000010058283, z: -0.000000020954754, w: 1}
       scale: {x: 1.0000007, y: 1.0000001, z: 1.0000006}
     - name: Toe02_Right_end
       parentName: Toe02_Right
@@ -1633,8 +1636,7 @@ ModelImporter:
     - name: ToeEnd_01_Right
       parentName: ToeEnd_Right
       position: {x: -1.0302756e-10, y: -3.259629e-11, z: 2.3283063e-11}
-      rotation: {x: 0.000000025145706, y: 0.0000004842877, z: 0.0000000051222737,
-        w: 1}
+      rotation: {x: 0.000000025145706, y: 0.0000004842877, z: 0.0000000051222737, w: 1}
       scale: {x: 1.0000008, y: 1.0000004, z: 1.0000007}
     - name: ToeEnd_01_Right_end
       parentName: ToeEnd_01_Right
@@ -1669,8 +1671,7 @@ ModelImporter:
     - name: Ctrl_Toe_IK_Right
       parentName: ToeEnd_Right
       position: {x: -2.0838342e-10, y: -0.0009999998, z: -4.0745363e-12}
-      rotation: {x: -9.3132235e-10, y: -0.0000000037252894, z: -0.0000000027066556,
-        w: 1}
+      rotation: {x: -9.3132235e-10, y: -0.0000000037252894, z: -0.0000000027066556, w: 1}
       scale: {x: 1.0000007, y: 1.0000004, z: 1.0000004}
     - name: Ctrl_Toe_IK_Right_end
       parentName: Ctrl_Toe_IK_Right
@@ -1840,12 +1841,11 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: mixamorig:Hips
+    rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 34988b9628a3863419240e0fc81540df,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d8f14d752a01c2d41b855546e8488300, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

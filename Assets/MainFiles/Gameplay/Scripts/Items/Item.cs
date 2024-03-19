@@ -21,8 +21,7 @@ namespace Gameplay.Items
             Properties.Clear();
             PropertyList = gameObject.GetComponents<Property>();
             for (int i = 0; i < PropertyList.Length; i++)
-            {
-                
+            {   
                 Property property = PropertyList[i];
 
                 // No duplicate properties allowed
