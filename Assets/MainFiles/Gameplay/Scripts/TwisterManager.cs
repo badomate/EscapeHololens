@@ -45,7 +45,7 @@ namespace Gameplay
 			OnCorrectGuess += ActivateButton;
 			OnWrongGuess += ActivateButton;
             
-			StartCoroutine(nameof(MainLoop));
+			//StartCoroutine(nameof(MainLoop));
 		}
 
 		IEnumerator MainLoop() {

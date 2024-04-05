@@ -18,34 +18,36 @@ namespace Agent.Communication.Cognition
 
         public enum ID
         {
-            NONE, 
-            GO_LEFT,
-            GO_RIGHT,
-            GO_FORWARD,
-            GO_BACKWARD,
+            G00T_NONE,
 
-            TURN_LEFT,
-            TURN_RIGHT,
+            G01T_NEW_WORD,
+            G02T_ATTENTION,
 
-            CIRCLE,
-            SQUARE,
+            G03T_YES,
+            G04T_NO,
 
-            RED,
-            BLUE,
+            G05T_UNRECOGNIZED,
+            G06T_AMBIGUOUS,
 
-            NEW_WORD,
-            ATTENTION,
-            YES,
-            NO,
+            G07M_GO_LEFT,
+            G08M_GO_RIGHT,
+            G09M_GO_FORWARD,
+            G10M_GO_BACKWARD,
 
-            VICTORY,
+            G11M_TURN_LEFT,
+            G12M_TURN_RIGHT,
 
-            UNRECOGNIZED,
-            AMBIGUOUS
+            G13S_CIRCLE,
+            G14S_SQUARE,
+
+            G15C_RED,
+            G16C_BLUE,
+
+            G17T_VICTORY
         }
 
 
-        public UnityEvent<ID> OnGestureRecognized = new UnityEvent<ID>();
+        public UnityEvent<List<ID>> OnGestureRecognized = new UnityEvent<List<ID>>();
 
         public void Recognize(Dictionary<Pose.Landmark, Vector3>[] externalMovementRecord = null)
         {
@@ -185,70 +187,65 @@ namespace Agent.Communication.Cognition
                               !IsFingerDown(Pose.Landmark.LEFT_PINKY) &&
                               !IsFingerDown(Pose.Landmark.LEFT_THUMB);
 
-
-
-            if (isYes)
+            List<ID> gesturesRecognized = new List<ID>(); 
+            
+            if (isCircle)
             {
-                OnGestureRecognized.Invoke(ID.VICTORY);
-                Debug.Log("YES detected");
-            }
-            else if (isRed)
-            {
-                OnGestureRecognized.Invoke(ID.GO_LEFT);
-                Debug.Log("RED detected");
-            }
-            else if (isCircle)
-            {
-                OnGestureRecognized.Invoke(ID.GO_RIGHT);
-                Debug.Log("CIRCLE detected");
+                gesturesRecognized.Add(ID.G13S_CIRCLE);
             }
             else if (isSquare)
             {
-                OnGestureRecognized.Invoke(ID.TURN_LEFT);
-                Debug.Log("CIRCLE detected");
-            }
-            /*
-            if (isBlue)
-            {
-                RecognizeGesture.OnGestureRecognized.Invoke(ID.VICTORY);
-                Debug.Log("BLUE detected");
+                gesturesRecognized.Add(ID.G14S_SQUARE);
             }
             else if (isRed)
             {
-                RecognizeGesture.OnGestureRecognized.Invoke(ID.SUPERMAN);
-                Debug.Log("RED detected");
+                gesturesRecognized.Add(ID.G15C_RED);
             }
-            else if (isHello)
+            else if (isBlue)
             {
-                RecognizeGesture.OnGestureRecognized.Invoke(ID.SUPERMAN);
-                Debug.Log("HELLO detected");
-            }
-            else if (isYes)
-            {
-                RecognizeGesture.OnGestureRecognized.Invoke(ID.TURN_LEFT);
-                Debug.Log("YES detected");
-            }
-            else if (isNo)
-            {
-                RecognizeGesture.OnGestureRecognized.Invoke(ID.TURN_RIGHT);
-                Debug.Log("NO detected");
+                gesturesRecognized.Add(ID.G16C_BLUE);
             }
             else if (isDirectionForward)
             {
-                RecognizeGesture.OnGestureRecognized.Invoke(ID.GO_FORWARD);
-                Debug.Log("FORWARD detected");
-            }
-            else if (isDirectionLeft)
-            {
-                RecognizeGesture.OnGestureRecognized.Invoke(ID.GO_LEFT);
-                Debug.Log("LEFT detected");
+                gesturesRecognized.Add(ID.G09M_GO_FORWARD);
             }
             else if (isDirectionRight)
             {
-                RecognizeGesture.OnGestureRecognized.Invoke(ID.GO_RIGHT);
-                Debug.Log("RIGHT detected");
-            }*/
+                gesturesRecognized.Add(ID.G08M_GO_RIGHT);
+            }
+            else if (isDirectionLeft)
+            {
+                gesturesRecognized.Add(ID.G07M_GO_LEFT);
+            }
+            else if (isHello)
+            {
+                gesturesRecognized.Add(ID.G02T_ATTENTION);
+            }
+            else if (isNewWord)
+            {
+                gesturesRecognized.Add(ID.G01T_NEW_WORD);
+            }
+            else if (isYes)
+            {
+                gesturesRecognized.Add(ID.G03T_YES);
+            }
+            else if (isNo)
+            {
+                gesturesRecognized.Add(ID.G04T_NO);
+            }
+            else
+            {
+                gesturesRecognized.Add(ID.G05T_UNRECOGNIZED);
+            }
 
+            Debug.Log("Gestures recognized: " + gesturesRecognized.ToString());
+            
+            if (gesturesRecognized.Count > 1)
+            {
+                gesturesRecognized.Clear();
+                gesturesRecognized.Add(ID.G06T_AMBIGUOUS);
+            }
+            OnGestureRecognized.Invoke(gesturesRecognized);
         }
 
         private bool IsWristRotated(bool leftHand, Quaternion targetRotation, int threshold)

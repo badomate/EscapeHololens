@@ -26,11 +26,8 @@ namespace Agent.Communication.Cognition
 
         public static Dictionary<Pose.Landmark, Vector3>[] playerMovementRecord;
         
-        public float matchThreshold = 0.01f; // 0 would mean an absolute perfect match across all samples
-
         // Start is called before the first frame update
 
-        public GameObject playerCamera;
         void Start()
         {
             playerMovementRecord = new Dictionary<Pose.Landmark, Vector3>[recordingLength];
@@ -54,11 +51,6 @@ namespace Agent.Communication.Cognition
             }
         }
 
-        public bool GestureCompleted(Gesture goalGesture, Vector3[,] gestureToCompareMatrix)
-        {
-            Gesture gestureToCompare = Gesture.formatter.PositionsMatrixToGesture(gestureToCompareMatrix);
-            return isRecording && recordingProgress == recordingLength && goalGesture.GestureMatches(gestureToCompare);
-        }
 
         //We save the gesture's samples received through the mediapipe stream as a matrix and keep comparing it to the goal until they match. Every row is a sample (at 30hz)
         //If the matrix is full, we will throw away the oldest sample so we can keep matrix size the same
