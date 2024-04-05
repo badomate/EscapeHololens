@@ -39,16 +39,7 @@ namespace Agent.Communication.Cognition
                 }
             }
 
-            if (OnStillnessDetected != null)
-            {
-                OnStillnessDetected.Invoke();
-                return true;
-            }
-            else
-            {
-                OnStillnessDetected = new UnityEvent();
-                return true;
-            }
+            return true;
         }
     }
 }

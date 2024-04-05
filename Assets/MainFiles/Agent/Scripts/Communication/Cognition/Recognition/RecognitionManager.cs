@@ -12,8 +12,12 @@ namespace Agent.Communication.Cognition
     // Serves as a bridge between a stillness detector and the gesture detector it activates
     public class RecognitionManager : MonoBehaviour
     {
+        public static RecognitionManager instance;
+
         // Inquires if the player is still. Caught by the StillnessDetector class.
-        public UnityEvent OnInquireStillness = new UnityEvent();
+        public UnityEvent<Dictionary<Pose.Landmark, Vector3>[]> OnInquireStillness = 
+            new UnityEvent<Dictionary<Pose.Landmark, Vector3>[]>();
+
         public UnityEvent OnRequestGestureDetection = new UnityEvent();
 
         public bool isRecording = false;
@@ -24,8 +28,20 @@ namespace Agent.Communication.Cognition
         private readonly float frameInterval = 1f / 30f; // 30hz
         private float timeSinceLastFrame = 0f;
 
-        public static Dictionary<Pose.Landmark, Vector3>[] playerMovementRecord;
-        
+        public Dictionary<Pose.Landmark, Vector3>[] playerMovementRecord;
+
+        public void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(this);
+            }
+        }
+
         // Start is called before the first frame update
 
         void Start()
@@ -47,7 +63,7 @@ namespace Agent.Communication.Cognition
             {
                 SaveGestureFrame();
                 timeSinceLastFrame = 0f; // Reset the time counter
-                OnInquireStillness.Invoke(); // Ask the stillness detector if the player is still
+                OnInquireStillness.Invoke(playerMovementRecord); // Ask the stillness detector if the player is still
             }
         }
 

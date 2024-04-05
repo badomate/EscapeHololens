@@ -17,6 +17,12 @@ namespace Agent.Communication.Cognition
             this.OnStillnessDetected = new UnityEvent();
         }
 
+        public void Start()
+        {
+            RecognitionManager recognitionManager = GetComponent<RecognitionManager>();
+            recognitionManager.OnInquireStillness.AddListener(DetectStillness);
+        }
+
         public StillnessDetector()
         {
             this.stillnessThreshold = 0.1f;
@@ -25,5 +31,13 @@ namespace Agent.Communication.Cognition
         }
 
         public abstract bool IsStill(Dictionary<Gestures.Pose.Landmark, Vector3>[] movementRecord = null);
+
+        public virtual void DetectStillness(Dictionary<Gestures.Pose.Landmark, Vector3>[] playerMovementRecord = null)
+        {
+            if (IsStill(playerMovementRecord))
+            {
+                OnStillnessDetected.Invoke();
+            }
+        }
     }
 }

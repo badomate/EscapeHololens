@@ -1,4 +1,4 @@
-﻿using Agent.Communication.Gestures;
+using Agent.Communication.Gestures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +11,6 @@ namespace Agent.Communication.Cognition
     public interface IStillnessDetector
     {
         public bool IsStill(Dictionary<Gestures.Pose.Landmark, Vector3>[] playerMovementRecord = null);
+        public void DetectStillness(Dictionary<Gestures.Pose.Landmark, Vector3>[] playerMovementRecord = null);
     }
 }

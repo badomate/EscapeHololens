@@ -21,10 +21,12 @@ namespace Gameplay.Items.Properties
 
         [SerializeField]
         public PropertyType Type { get; protected set; }
+        public string FullName;
 
         public Property(PropertyType type)
         {
             Type = type;
+            FullName = type.ToString();
         }
 
         public List<PropertyType> GetAllTypes()

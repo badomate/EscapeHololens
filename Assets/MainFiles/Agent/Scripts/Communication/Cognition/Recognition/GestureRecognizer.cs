@@ -3,6 +3,7 @@ using SensorHub;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using Pose = Agent.Communication.Gestures.Pose;
@@ -12,7 +13,7 @@ namespace Agent.Communication.Cognition
     public class GestureRecognizer : MonoBehaviour, IGestureRecognizer
     {
         private Dictionary<Pose.Landmark, Vector3>[] movementRecord;
-
+        private bool isDebugActive = false;
         [SerializeField]
         private GameObject referenceCamera;
 
@@ -48,6 +49,12 @@ namespace Agent.Communication.Cognition
 
 
         public UnityEvent<List<ID>> OnGestureRecognized = new UnityEvent<List<ID>>();
+
+        public void Update()
+        {
+            if (isDebugActive)
+                FakeRecognize();
+        }
 
         public void Recognize(Dictionary<Pose.Landmark, Vector3>[] externalMovementRecord = null)
         {
@@ -248,6 +255,43 @@ namespace Agent.Communication.Cognition
             OnGestureRecognized.Invoke(gesturesRecognized);
         }
 
+        public void FakeRecognize()
+        {
+            ID action = ID.G00T_NONE;
+
+            if (Input.GetKeyDown("1")) //this usually causes the event to fire multiple times, but that's fine, we want animations to play while the gesture is held
+            {
+                action = ID.G16C_BLUE;
+            }
+            else if (Input.GetKeyDown("2"))
+            {
+                action = ID.G15C_RED;
+            }
+            else if (Input.GetKeyDown("3"))
+            {
+                action = ID.G14S_SQUARE;
+            }
+            else if (Input.GetKeyDown("4"))
+            {
+                action = ID.G13S_CIRCLE;
+            }
+            else if (Input.GetKeyDown("5"))
+            {
+                action = ID.G03T_YES;
+            }
+            else if (Input.GetKeyDown("6"))
+            {
+                action = ID.G04T_NO;
+            }
+            else if (Input.anyKeyDown)
+            {
+                action = ID.G05T_UNRECOGNIZED;
+            }
+
+            OnGestureRecognized.Invoke(new List<ID> { action });
+        }
+
+        #region Recognition Methods
         private bool IsWristRotated(bool leftHand, Quaternion targetRotation, int threshold)
         {
             Quaternion palmRotation = leftHand ? HololensHandPoseSolver.leftPalmRot : HololensHandPoseSolver.rightPalmRot;
@@ -448,5 +492,7 @@ namespace Agent.Communication.Cognition
                 return false;
             }
         }
+
+        #endregion
     }
 }

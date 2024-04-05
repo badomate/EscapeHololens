@@ -61,6 +61,7 @@ namespace Agent.Movement
                 { ActionID.TURN_LEFT, "TurnLeft" },
                 { ActionID.TURN_RIGHT, "TurnRight" },
                 { ActionID.UNRECOGNIZED, "Ambiguous" },
+                { ActionID.AMBIGUOUS, "Ambiguous" }
         };
 
         // Start is called before the first frame update
