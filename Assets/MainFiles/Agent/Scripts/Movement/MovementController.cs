@@ -69,9 +69,12 @@ namespace Agent.Movement
         {
             animator = GetComponent<Animator>();
             ikController = GetComponent<IKController>();
+            AIController controller = GetComponent<AIController>();
+            controller.ActionRequestedEvent.AddListener(OnActionRequested);
+            controller.InteractionRequestedEvent.AddListener(OnInteractionRequested);
         }
 
-        public void PerformAction(ActionID action)
+        public void OnActionRequested(ActionID action)
         {
             if (actionMatcher.TryGetValue(action, out string animationID))
             {
@@ -84,7 +87,7 @@ namespace Agent.Movement
             }
         }
 
-        public void ReachObject(GameObject target)
+        public void OnInteractionRequested(GameObject target)
         {
             ikController.SetTarget(target.transform);
         }
@@ -135,7 +138,7 @@ namespace Agent.Movement
 
             if (action != ActionID.NONE)
             {
-                PerformAction(action);
+                OnActionRequested(action);
             }
         }
     }

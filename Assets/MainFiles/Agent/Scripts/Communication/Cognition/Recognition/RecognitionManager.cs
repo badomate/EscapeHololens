@@ -15,10 +15,10 @@ namespace Agent.Communication.Cognition
         public static RecognitionManager instance;
 
         // Inquires if the player is still. Caught by the StillnessDetector class.
-        public UnityEvent<Dictionary<Pose.Landmark, Vector3>[]> OnInquireStillness = 
+        public UnityEvent<Dictionary<Pose.Landmark, Vector3>[]> StillnessInquiredEvent = 
             new UnityEvent<Dictionary<Pose.Landmark, Vector3>[]>();
 
-        public UnityEvent OnRequestGestureDetection = new UnityEvent();
+        public UnityEvent GestureRecognitionRequestedEvent = new UnityEvent();
 
         public bool isRecording = false;
         
@@ -63,7 +63,7 @@ namespace Agent.Communication.Cognition
             {
                 SaveGestureFrame();
                 timeSinceLastFrame = 0f; // Reset the time counter
-                OnInquireStillness.Invoke(playerMovementRecord); // Ask the stillness detector if the player is still
+                StillnessInquiredEvent.Invoke(playerMovementRecord); // Ask the stillness detector if the player is still
             }
         }
 

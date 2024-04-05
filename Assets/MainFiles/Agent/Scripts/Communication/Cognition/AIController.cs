@@ -13,8 +13,8 @@ namespace Agent.Communication.Cognition
 {
     public class AIController : MonoBehaviour
     {
-        public UnityEvent<GameObject> OnRequestInteraction = new UnityEvent<GameObject>();
-        public UnityEvent<ActionID> OnRequestAction = new UnityEvent<ActionID>();
+        public UnityEvent<GameObject> InteractionRequestedEvent = new UnityEvent<GameObject>();
+        public UnityEvent<ActionID> ActionRequestedEvent = new UnityEvent<ActionID>();
 
         [SerializeField]
         private List<Property> KnownPropertiesList;
@@ -24,6 +24,12 @@ namespace Agent.Communication.Cognition
         
         IKController iKController;
         Animator animator;
+
+        private void Start()
+        {
+            GestureRecognizer recognizer = GetComponent<GestureRecognizer>();
+            recognizer.GestureRecognizedEvent.AddListener(OnGestureDetected);
+        }
 
         void Awake() {
             TwisterManager.OnP2Display += IndicateLevel;
@@ -56,7 +62,7 @@ namespace Agent.Communication.Cognition
         }
         */
 
-        public void InterpretGestures(List<GestureID> gestureIDs)
+        public void OnGestureDetected(List<GestureID> gestureIDs)
         {
             if (gestureIDs.Count != 0 && gestureIDs[0] != GestureID.G00T_NONE)
             {
@@ -77,10 +83,10 @@ namespace Agent.Communication.Cognition
                         name = "COLOR_RED";
                         break;
                     case (GestureID.G04T_NO):
-                        OnRequestAction.Invoke(ActionID.BLUE);
+                        ActionRequestedEvent.Invoke(ActionID.BLUE);
                         return;
                     case (GestureID.G03T_YES):
-                        OnRequestAction.Invoke(ActionID.RED);
+                        ActionRequestedEvent.Invoke(ActionID.RED);
                         return;
                     default:
                         break;
@@ -92,12 +98,12 @@ namespace Agent.Communication.Cognition
                 }
                 else
                 {
-                    OnRequestAction.Invoke(ActionID.UNRECOGNIZED);
+                    ActionRequestedEvent.Invoke(ActionID.UNRECOGNIZED);
                 }
             }
             else
             {
-                OnRequestAction.Invoke(ActionID.AMBIGUOUS);
+                ActionRequestedEvent.Invoke(ActionID.AMBIGUOUS);
             }
         }
 
@@ -107,7 +113,7 @@ namespace Agent.Communication.Cognition
             {
                 if (item.GetProperty(property.Type) == property)
                 {
-                    OnRequestInteraction.Invoke(item.gameObject);
+                    InteractionRequestedEvent.Invoke(item.gameObject);
                 }
             }
         }

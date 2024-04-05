@@ -17,6 +17,8 @@ namespace Agent.Communication.Cognition
         [SerializeField]
         private GameObject referenceCamera;
 
+        public UnityEvent<List<ID>> GestureRecognizedEvent = new UnityEvent<List<ID>>();
+
         public enum ID
         {
             G00T_NONE,
@@ -47,16 +49,13 @@ namespace Agent.Communication.Cognition
             G17T_VICTORY
         }
 
-
-        public UnityEvent<List<ID>> OnGestureRecognized = new UnityEvent<List<ID>>();
-
         public void Update()
         {
             if (isDebugActive)
                 FakeRecognize();
         }
 
-        public void Recognize(Dictionary<Pose.Landmark, Vector3>[] externalMovementRecord = null)
+        public void OnGestureRecognitionRequested(Dictionary<Pose.Landmark, Vector3>[] externalMovementRecord = null)
         {
             movementRecord = externalMovementRecord != null ?
                 externalMovementRecord : new Dictionary<Pose.Landmark, Vector3>[1];
@@ -252,7 +251,7 @@ namespace Agent.Communication.Cognition
                 gesturesRecognized.Clear();
                 gesturesRecognized.Add(ID.G06T_AMBIGUOUS);
             }
-            OnGestureRecognized.Invoke(gesturesRecognized);
+            GestureRecognizedEvent.Invoke(gesturesRecognized);
         }
 
         public void FakeRecognize()
@@ -288,7 +287,7 @@ namespace Agent.Communication.Cognition
                 action = ID.G05T_UNRECOGNIZED;
             }
 
-            OnGestureRecognized.Invoke(new List<ID> { action });
+            GestureRecognizedEvent.Invoke(new List<ID> { action });
         }
 
         #region Recognition Methods

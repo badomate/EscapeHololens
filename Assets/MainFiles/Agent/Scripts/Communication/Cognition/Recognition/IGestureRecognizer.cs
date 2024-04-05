@@ -11,6 +11,6 @@ namespace Agent.Communication.Cognition
 {
     public interface IGestureRecognizer
     {
-        public void Recognize(Dictionary<Pose.Landmark, Vector3>[] movementRecord = null);
+        public void OnGestureRecognitionRequested(Dictionary<Pose.Landmark, Vector3>[] movementRecord = null);
     }
 }

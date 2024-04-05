@@ -11,6 +11,6 @@ namespace Agent.Communication.Cognition
     public interface IStillnessDetector
     {
         public bool IsStill(Dictionary<Gestures.Pose.Landmark, Vector3>[] playerMovementRecord = null);
-        public void DetectStillness(Dictionary<Gestures.Pose.Landmark, Vector3>[] playerMovementRecord = null);
+        public void OnStillnessInquired(Dictionary<Gestures.Pose.Landmark, Vector3>[] playerMovementRecord = null);
     }
 }
