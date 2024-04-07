@@ -129,9 +129,6 @@ GameObject:
   - component: {fileID: 5114754588826108147}
   - component: {fileID: 2293084344576343534}
   - component: {fileID: 3124941235979594971}
-  - component: {fileID: 3124941235979594968}
-  - component: {fileID: 3124941235979594969}
-  - component: {fileID: 3124941235979594974}
   m_Layer: 0
   m_Name: SquareYellowButton
   m_TagString: Untagged
@@ -460,52 +457,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PropertyList:
-  - {fileID: 3124941235979594968}
-  - {fileID: 3124941235979594969}
-  - {fileID: 3124941235979594974}
+  - {fileID: 11400000, guid: a55d4a426da28da4b81559679cdffd8e, type: 2}
+  - {fileID: 11400000, guid: d41b2a290c4f45c4ebd0acff00745da5, type: 2}
   Id: -1
   buttonEffectsSO: {fileID: 11400000, guid: 032cbcf2c2c75de4b865d462d822eedf, type: 2}
---- !u!114 &3124941235979594968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124941235979594975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abeaa24ab46d0144ada56e76e760a7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ShapeTraitsSO>k__BackingField: {fileID: 11400000, guid: 0c88f17d9c1e0fe4c9534f92e00731de, type: 2}
---- !u!114 &3124941235979594969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124941235979594975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb94d179d4ebbf4aad70b8d51ea5b1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ColorTraitsSO>k__BackingField: {fileID: 11400000, guid: f084010ea22169341b9c5f7c78a6d72e, type: 2}
---- !u!114 &3124941235979594974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124941235979594975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c8e4b76c3b2384499c7cf20a4831be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  referenceLocation: {fileID: 0}
-  currentLocation: {fileID: 2311989089164392037}
-  relativeDirection: 0
 --- !u!1 &6230185835764424124
 GameObject:
   m_ObjectHideFlags: 0

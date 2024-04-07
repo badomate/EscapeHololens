@@ -9,7 +9,7 @@ namespace Gameplay
 		public static event Action OnLevelClear;
 		public static event Action OnGameClear;
 
-		public static event Action<TwisterButton, bool> OnCorrectGuess;
+        public static event Action<TwisterButton, bool> OnCorrectGuess;
 		public static event Action<TwisterButton, bool> OnWrongGuess;
 		public static event Action<TwisterLevel> OnP1Display;
 		public static event Action<TwisterLevel> OnP2Display;
@@ -45,14 +45,16 @@ namespace Gameplay
 			OnCorrectGuess += ActivateButton;
 			OnWrongGuess += ActivateButton;
             
-			//StartCoroutine(nameof(MainLoop));
+			StartCoroutine(nameof(MainLoop));
 		}
 
-		IEnumerator MainLoop() {
+        IEnumerator MainLoop() {
 			for (level = 0; level < levels.Length; level++)
 			{
                 levels[level].Spawn(InstanceTarget.transform.position);
-					
+
+                yield return new WaitForEndOfFrame();
+
                 if (levels[level].guesser ==Players.player2) {
 					player1Displayer.DisplaySolution(levels[level]);
 					OnP1Display.Invoke(levels[level]);

@@ -10,7 +10,7 @@ namespace Agent.Movement
         private IKController ikController;
 
         [SerializeField]
-        private bool isDebugOn = true;
+        private bool isDebugOn = false;
 
         Animator animator;
         public bool performStandardAnimations = true;

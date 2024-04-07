@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Agent.Communication.Gestures;
+using System;
 
 namespace Agent.Communication.Cognition.Startup {
 
+    [Obsolete("This class is deprecated while complex gestures are not present.")]
     public class GestureGenerator
     {
         [SerializeField]

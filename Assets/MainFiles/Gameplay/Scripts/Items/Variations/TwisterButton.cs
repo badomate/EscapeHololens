@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Gameplay.Items
 {
-    [RequireComponent(typeof(ColorProperty), typeof(ShapeProperty))]
+    [RequireComponent(typeof(ColorPropertySO), typeof(ShapePropertySO))]
     public class TwisterButton : Item
     {
         [SerializeField]

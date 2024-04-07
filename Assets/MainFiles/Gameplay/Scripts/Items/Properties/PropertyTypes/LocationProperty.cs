@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Items.Properties
 {
+
+    [Obsolete("Property class is deprecated, please use PropertySO and its subclasses instead.", error: true)]
     public class LocationProperty : Property
     {
         public enum Direction

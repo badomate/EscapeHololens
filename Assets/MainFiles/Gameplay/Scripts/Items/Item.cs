@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Gameplay.Items.Properties;
+using System;
 
 namespace Gameplay.Items
 {
@@ -8,25 +9,27 @@ namespace Gameplay.Items
     {
         // This is so the Unity Editor can recognize Properties
         [SerializeField]
-        private Property[] PropertyList;
+        private List<PropertySO> PropertyList;
 
-        private Dictionary<Property.PropertyType, Property> Properties;
+        private Dictionary<PropertySO.Type, PropertySO> Properties;
 
         public Item()
         {
-            Properties = new Dictionary<Property.PropertyType, Property>();
+            Properties = new Dictionary<PropertySO.Type, PropertySO>();
         }
 
-        void SetProperties() {
+        public void SetProperties() {
             Properties.Clear();
-            PropertyList = gameObject.GetComponents<Property>();
-            for (int i = 0; i < PropertyList.Length; i++)
-            {   
-                Property property = PropertyList[i];
+
+            for (int i = 0; i < PropertyList.Count; i++)
+            {
+                PropertySO property = PropertyList[i];
 
                 // No duplicate properties allowed
-                Properties.TryAdd(property.Type, property); 
+                if (Properties.TryAdd(property.type, property))
+                    property.UpdateItem(gameObject);
             }
+
         }
 
         public void Start()
@@ -34,22 +37,18 @@ namespace Gameplay.Items
             SetProperties();
         }
 
-        private void OnValidate() {
-            SetProperties();
-        }
-
-        public T GetProperty<T>() where T : Property
+        public T GetProperty<T>() where T : PropertySO
         {
-            foreach (Property item in Properties.Values)
+            foreach (PropertySO item in Properties.Values)
             {
                 if (item is T t) return t;
             }
             return null;
         }
 
-        public Property GetProperty(Property.PropertyType propertyType)
+        public PropertySO GetProperty(PropertySO.Type propertyType)
         {
-            Properties.TryGetValue(propertyType, out Property property);
+            Properties.TryGetValue(propertyType, out PropertySO property);
             return property;
         }
 

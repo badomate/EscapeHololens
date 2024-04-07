@@ -1,4 +1,4 @@
-﻿using Agent.Communication.Cognition;
+using Agent.Communication.Cognition;
 using SensorHub;
 using System;
 using System.Collections;
@@ -13,7 +13,7 @@ namespace Agent.Communication.Cognition
     public class GestureRecognizer : MonoBehaviour, IGestureRecognizer
     {
         private Dictionary<Pose.Landmark, Vector3>[] movementRecord;
-        private bool isDebugActive = false;
+        private bool isDebugActive = true;
         [SerializeField]
         private GameObject referenceCamera;
 
@@ -55,8 +55,14 @@ namespace Agent.Communication.Cognition
                 FakeRecognize();
         }
 
+        public void Start()
+        {
+            RecognitionManager.instance.GestureRecognitionRequestedEvent.AddListener(OnGestureRecognitionRequested);
+        }
+
         public void OnGestureRecognitionRequested(Dictionary<Pose.Landmark, Vector3>[] externalMovementRecord = null)
         {
+
             movementRecord = externalMovementRecord != null ?
                 externalMovementRecord : new Dictionary<Pose.Landmark, Vector3>[1];
 
@@ -245,7 +251,7 @@ namespace Agent.Communication.Cognition
             }
 
             Debug.Log("Gestures recognized: " + gesturesRecognized.ToString());
-            
+
             if (gesturesRecognized.Count > 1)
             {
                 gesturesRecognized.Clear();

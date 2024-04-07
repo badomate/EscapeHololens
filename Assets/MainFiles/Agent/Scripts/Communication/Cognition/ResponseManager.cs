@@ -4,8 +4,11 @@ using Agent.Communication.Gestures;
 using Agent.Communication.Cognition.Startup;
 using AuxiliarContent;
 using Utilities;
+using System;
 
 namespace Agent.Communication.Cognition {
+
+    [Obsolete("This class is deprecated, use GestureRecognizer instead - for now")]
     public class ResponseManager
     {
         public class ResponseGesture

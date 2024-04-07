@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace Gameplay.Items.Properties
 {
     // May add more color traits (saturation, luminosity, ...)
+
+    [Obsolete("Property class is deprecated, please use PropertySO and its subclasses instead.", error:true)]
     public class ColorProperty : Property
     {
         [field: SerializeField]

@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 682110e64314c6e4d940f32c90320927, type: 2}
+  - {fileID: 2100000, guid: df9b0339b7325e243842969831c21717, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -129,9 +129,6 @@ GameObject:
   - component: {fileID: 5114754588826108147}
   - component: {fileID: 2293084344576343534}
   - component: {fileID: 3124941235979594971}
-  - component: {fileID: 3124941235979594968}
-  - component: {fileID: 3124941235979594969}
-  - component: {fileID: 3124941235979594974}
   m_Layer: 0
   m_Name: SquareRedButton
   m_TagString: Untagged
@@ -460,52 +457,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PropertyList:
-  - {fileID: 3124941235979594968}
-  - {fileID: 3124941235979594969}
-  - {fileID: 3124941235979594974}
+  - {fileID: 11400000, guid: a55d4a426da28da4b81559679cdffd8e, type: 2}
+  - {fileID: 11400000, guid: e54e604b78886c445a2f00b69a69f163, type: 2}
   Id: -1
   buttonEffectsSO: {fileID: 11400000, guid: 032cbcf2c2c75de4b865d462d822eedf, type: 2}
---- !u!114 &3124941235979594968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124941235979594975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abeaa24ab46d0144ada56e76e760a7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ShapeTraitsSO>k__BackingField: {fileID: 11400000, guid: 0c88f17d9c1e0fe4c9534f92e00731de, type: 2}
---- !u!114 &3124941235979594969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124941235979594975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb94d179d4ebbf4aad70b8d51ea5b1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ColorTraitsSO>k__BackingField: {fileID: 11400000, guid: 24a70ab0d73079340934dead1959f0f9, type: 2}
---- !u!114 &3124941235979594974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124941235979594975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c8e4b76c3b2384499c7cf20a4831be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  referenceLocation: {fileID: 0}
-  currentLocation: {fileID: 2311989089164392037}
-  relativeDirection: 0
 --- !u!1 &6230185835764424124
 GameObject:
   m_ObjectHideFlags: 0

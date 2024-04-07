@@ -15,20 +15,29 @@ namespace Agent.Communication.Cognition
     {
         public UnityEvent<GameObject> InteractionRequestedEvent = new UnityEvent<GameObject>();
         public UnityEvent<ActionID> ActionRequestedEvent = new UnityEvent<ActionID>();
+        public UnityEvent KnowledgeBaseSetupEvent = new UnityEvent();
+        public Dictionary<int, Item> GameItems;
 
         [SerializeField]
-        private List<Property> KnownPropertiesList;
+        public List<PropertySO> KnownPropertiesList;
 
-        // Translates the property string to the equivalent Property
-        private Dictionary<string, Property> KnownProperties;
+        // Translates the property string to the equivalent PropertySO
+        private Dictionary<string, PropertySO> KnownProperties;
         
         IKController iKController;
         Animator animator;
+
+        public AIController()
+        {
+            GameItems = new Dictionary<int, Item>();
+        }
 
         private void Start()
         {
             GestureRecognizer recognizer = GetComponent<GestureRecognizer>();
             recognizer.GestureRecognizedEvent.AddListener(OnGestureDetected);
+            InitializeKnownProperties();
+            KnowledgeBaseSetupEvent.Invoke();
         }
 
         void Awake() {
@@ -39,28 +48,25 @@ namespace Agent.Communication.Cognition
 
         void IndicateLevel(TwisterLevel level) {
             iKController.SetIdle();
+            Item[] items = level.gameObject.GetComponentsInChildren<Item>();
+            GameItems.Clear();
+
+            foreach (Item item in items)
+            {
+                GameItems.Add(item.Id, item);
+            }
             //StartCoroutine(nameof(GestureProperties), level.goal);
         }
 
         private void InitializeKnownProperties()
         {
-            KnownProperties = new Dictionary<string, Property>();
-            foreach (Property property in KnownPropertiesList)
+            KnownProperties = new Dictionary<string, PropertySO>();
+            foreach (PropertySO property in KnownPropertiesList)
             {
-                KnownProperties.Add(property.FullName.ToString(), property);
-                Debug.Log("Added property to AI Controller: " + property.FullName);
+                KnownProperties.Add(property.fullName.ToString(), property);
+                Debug.Log("Added property to AI Controller: " + property.fullName);
             }
         }
-        
-        /*
-        IEnumerator GestureProperties(TwisterButton tb){
-            animator.Play(tb.GetProperty<ShapeProperty>().ShapeTraitsSO.gesture.name);
-            yield return new WaitForSeconds(4);
-            animator.Play(tb.GetProperty<ColorProperty>().ColorTraitsSO.gesture.name);
-            yield return new WaitForSeconds(4);
-            animator.Play("Armature|Idle");
-        }
-        */
 
         public void OnGestureDetected(List<GestureID> gestureIDs)
         {
@@ -92,7 +98,7 @@ namespace Agent.Communication.Cognition
                         break;
                 }
 
-                if (KnownProperties.TryGetValue(name, out Property property))
+                if (KnownProperties.TryGetValue(name, out PropertySO property))
                 {
                     TryItem(property);
                 }
@@ -107,11 +113,11 @@ namespace Agent.Communication.Cognition
             }
         }
 
-        void TryItem(Property property)
+        void TryItem(PropertySO property)
         {
-            foreach (Item item in FindObjectsByType<Item>(FindObjectsSortMode.None))
+            foreach (Item item in GameItems.Values)
             {
-                if (item.GetProperty(property.Type) == property)
+                if (item.GetProperty(property.type) == property)
                 {
                     InteractionRequestedEvent.Invoke(item.gameObject);
                 }

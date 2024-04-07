@@ -129,9 +129,6 @@ GameObject:
   - component: {fileID: 5114754588826108147}
   - component: {fileID: 2293084344576343534}
   - component: {fileID: 3124941235979594971}
-  - component: {fileID: 3124941235979594968}
-  - component: {fileID: 3124941235979594969}
-  - component: {fileID: 3124941235979594974}
   m_Layer: 0
   m_Name: RoundGreenButton
   m_TagString: Untagged
@@ -460,52 +457,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PropertyList:
-  - {fileID: 3124941235979594968}
-  - {fileID: 3124941235979594969}
-  - {fileID: 3124941235979594974}
+  - {fileID: 11400000, guid: 26ca8f54f65de1a4fb3c88bf52b88381, type: 2}
+  - {fileID: 11400000, guid: 0d179b83490934b4eb86f3feb0608789, type: 2}
   Id: -1
   buttonEffectsSO: {fileID: 11400000, guid: 032cbcf2c2c75de4b865d462d822eedf, type: 2}
---- !u!114 &3124941235979594968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124941235979594975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abeaa24ab46d0144ada56e76e760a7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ShapeTraitsSO>k__BackingField: {fileID: 11400000, guid: 89d212feb3e11c84da0306e33d5f067a, type: 2}
---- !u!114 &3124941235979594969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124941235979594975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb94d179d4ebbf4aad70b8d51ea5b1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ColorTraitsSO>k__BackingField: {fileID: 11400000, guid: 343679d983ef851408112dbc4f8666cd, type: 2}
---- !u!114 &3124941235979594974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124941235979594975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c8e4b76c3b2384499c7cf20a4831be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  referenceLocation: {fileID: 0}
-  currentLocation: {fileID: 2311989089164392037}
-  relativeDirection: 0
 --- !u!1 &6230185835764424124
 GameObject:
   m_ObjectHideFlags: 0

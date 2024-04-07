@@ -57,10 +57,11 @@ namespace Gameplay
             {
                 TwisterButton button = twisterLevel.transform.GetChild(i).GetComponent<TwisterButton>();
                 if(!button) continue;
+                button.SetProperties();
                 GameObject buttonDisplay = new();
                 buttonDisplay.AddComponent<Image>();
-                buttonDisplay.GetComponent<Image>().sprite = button.GetProperty<ShapeProperty>().ShapeTraitsSO.representation2D;
-                buttonDisplay.GetComponent<Image>().color = button.GetProperty<ColorProperty>().ColorTraitsSO.matchingColor;
+                buttonDisplay.GetComponent<Image>().sprite = button.GetProperty<ShapePropertySO>().representation2D;
+                buttonDisplay.GetComponent<Image>().color = button.GetProperty<ColorPropertySO>().matchingColor;
                 if(button == twisterLevel.goal) {
                     GameObject victoryDisplay = new();
                     victoryDisplay.AddComponent<Image>();

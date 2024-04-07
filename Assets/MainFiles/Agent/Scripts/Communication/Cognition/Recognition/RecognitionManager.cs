@@ -18,7 +18,8 @@ namespace Agent.Communication.Cognition
         public UnityEvent<Dictionary<Pose.Landmark, Vector3>[]> StillnessInquiredEvent = 
             new UnityEvent<Dictionary<Pose.Landmark, Vector3>[]>();
 
-        public UnityEvent GestureRecognitionRequestedEvent = new UnityEvent();
+        public UnityEvent<Dictionary<Pose.Landmark, Vector3>[]> GestureRecognitionRequestedEvent = 
+            new UnityEvent<Dictionary<Pose.Landmark, Vector3>[]>();
 
         public bool isRecording = false;
         
@@ -49,6 +50,7 @@ namespace Agent.Communication.Cognition
             playerMovementRecord = new Dictionary<Pose.Landmark, Vector3>[recordingLength];
         }
 
+
         // Update is called once per frame
         void Update()
         {
@@ -63,10 +65,15 @@ namespace Agent.Communication.Cognition
             {
                 SaveGestureFrame();
                 timeSinceLastFrame = 0f; // Reset the time counter
+
                 StillnessInquiredEvent.Invoke(playerMovementRecord); // Ask the stillness detector if the player is still
             }
         }
 
+        public void OnStillnessDetected()
+        {
+            GestureRecognitionRequestedEvent.Invoke(playerMovementRecord);
+        }
 
         //We save the gesture's samples received through the mediapipe stream as a matrix and keep comparing it to the goal until they match. Every row is a sample (at 30hz)
         //If the matrix is full, we will throw away the oldest sample so we can keep matrix size the same

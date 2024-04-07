@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using Utils;
 
 namespace Gameplay.Items.Properties
 {
+
+    [Obsolete("Property class is deprecated, please use PropertySO and its subclasses instead.", error: true)]
     public class ShapeProperty : Property
     {
         [field: SerializeField]

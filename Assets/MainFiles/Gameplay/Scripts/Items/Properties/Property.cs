@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Gameplay.Items.Properties
 {
     [Serializable]
+    [Obsolete("Property class is deprecated, please use PropertySO instead.", error: true)]
     public class Property: MonoBehaviour, IProperty
     {
         // To add a new property, add a new type
