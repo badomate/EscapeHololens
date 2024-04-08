@@ -49,6 +49,7 @@ namespace Gameplay
 		}
 
         IEnumerator MainLoop() {
+			InstanceTarget.GetComponent<MeshRenderer>().enabled = false;
 			for (level = 0; level < levels.Length; level++)
 			{
                 levels[level].Spawn(InstanceTarget.transform.position);

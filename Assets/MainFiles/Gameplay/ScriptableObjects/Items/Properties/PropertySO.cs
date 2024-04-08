@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Gameplay.Items.Properties
@@ -58,6 +58,8 @@ namespace Gameplay.Items.Properties
                 fullName = type.ToString() + "." + suffix;
             else
                 fullName = type.ToString();
+
+            fullName = fullName.ToLowerInvariant();
         }
     }
 }

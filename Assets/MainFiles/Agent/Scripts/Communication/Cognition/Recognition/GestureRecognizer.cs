@@ -49,15 +49,12 @@ namespace Agent.Communication.Cognition
             G17T_VICTORY
         }
 
-        public void Update()
-        {
-            if (isDebugActive)
-                FakeRecognize();
-        }
-
         public void Start()
         {
-            RecognitionManager.instance.GestureRecognitionRequestedEvent.AddListener(OnGestureRecognitionRequested);
+            if (!isDebugActive)
+                RecognitionManager.instance.GestureRecognitionRequestedEvent.AddListener(OnGestureRecognitionRequested);
+            else
+                RecognitionManager.instance.GestureRecognitionRequestedEvent.AddListener(FakeRecognize);
         }
 
         public void OnGestureRecognitionRequested(Dictionary<Pose.Landmark, Vector3>[] externalMovementRecord = null)
@@ -260,31 +257,32 @@ namespace Agent.Communication.Cognition
             GestureRecognizedEvent.Invoke(gesturesRecognized);
         }
 
-        public void FakeRecognize()
+        public void FakeRecognize(Dictionary<Pose.Landmark, Vector3>[] externalMovementRecord = null)
         {
+
             ID action = ID.G00T_NONE;
 
-            if (Input.GetKeyDown("1")) //this usually causes the event to fire multiple times, but that's fine, we want animations to play while the gesture is held
+            if (Input.GetKey("1")) //this usually causes the event to fire multiple times, but that's fine, we want animations to play while the gesture is held
             {
                 action = ID.G16C_BLUE;
             }
-            else if (Input.GetKeyDown("2"))
+            else if (Input.GetKey("2"))
             {
                 action = ID.G15C_RED;
             }
-            else if (Input.GetKeyDown("3"))
+            else if (Input.GetKey("3"))
             {
                 action = ID.G14S_SQUARE;
             }
-            else if (Input.GetKeyDown("4"))
+            else if (Input.GetKey("4"))
             {
                 action = ID.G13S_CIRCLE;
             }
-            else if (Input.GetKeyDown("5"))
+            else if (Input.GetKey("5"))
             {
                 action = ID.G03T_YES;
             }
-            else if (Input.GetKeyDown("6"))
+            else if (Input.GetKey("6"))
             {
                 action = ID.G04T_NO;
             }

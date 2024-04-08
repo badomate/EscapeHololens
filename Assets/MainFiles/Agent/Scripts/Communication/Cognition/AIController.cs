@@ -76,17 +76,17 @@ namespace Agent.Communication.Cognition
 
                 switch (gestureIDs[0])
                 {
-                    case (GestureID.G13S_CIRCLE):
-                        name = "SHAPE_CIRCLE";
-                        break;
-                    case (GestureID.G14S_SQUARE):
-                        name = "SHAPE_SQUARE";
-                        break;
                     case (GestureID.G16C_BLUE):
-                        name = "COLOR_BLUE";
+                        name = "color.blue";
                         break;
                     case (GestureID.G15C_RED):
-                        name = "COLOR_RED";
+                        name = "color.red";
+                        break;
+                    case (GestureID.G14S_SQUARE):
+                        name = "shape.square";
+                        break;
+                    case (GestureID.G13S_CIRCLE):
+                        name = "shape.circle";
                         break;
                     case (GestureID.G04T_NO):
                         ActionRequestedEvent.Invoke(ActionID.BLUE);

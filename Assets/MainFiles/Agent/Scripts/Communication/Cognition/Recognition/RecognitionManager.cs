@@ -10,6 +10,7 @@ using Pose = Agent.Communication.Gestures.Pose;
 namespace Agent.Communication.Cognition
 {
     // Serves as a bridge between a stillness detector and the gesture detector it activates
+    [RequireComponent(typeof(StillnessDetector)), RequireComponent(typeof(GestureRecognizer))]
     public class RecognitionManager : MonoBehaviour
     {
         public static RecognitionManager instance;
@@ -21,12 +22,12 @@ namespace Agent.Communication.Cognition
         public UnityEvent<Dictionary<Pose.Landmark, Vector3>[]> GestureRecognitionRequestedEvent = 
             new UnityEvent<Dictionary<Pose.Landmark, Vector3>[]>();
 
-        public bool isRecording = false;
+        public bool isRecording = true;
         
         public int recordingLength = 2; // how many frames do we save for comparison? should match the dictionary
         private int recordingProgress = 0; // how many samples of the currently playing gesture have we saved so far
 
-        private readonly float frameInterval = 1f / 30f; // 30hz
+        private readonly float frameInterval = 1f; // 30hz
         private float timeSinceLastFrame = 0f;
 
         public Dictionary<Pose.Landmark, Vector3>[] playerMovementRecord;
@@ -48,6 +49,7 @@ namespace Agent.Communication.Cognition
         void Start()
         {
             playerMovementRecord = new Dictionary<Pose.Landmark, Vector3>[recordingLength];
+            gameObject.GetComponent<StillnessDetector>().StillnessDetectedEvent.AddListener(OnStillnessDetected);
         }
 
 
